@@ -1,0 +1,984 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"utf",
+				"utf8_encode"
+			],
+			[
+				"im",
+				"imagestring"
+			],
+			[
+				"medio",
+				"medio_contacto"
+			],
+			[
+				"mysqli",
+				"mysqli_connect"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Applications/MAMP/htdocs/toolbox/calendario/montar_tarjetas_v1.01b.php",
+			"settings":
+			{
+				"buffer_size": 2516,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php //factura_png_v1.01a.php\n/*\nFichero: factura_png_v1.01a.php\nVersion: v1.01a\n\nUrl: http://localhost:8888/toolbox/tarjetas/factura_png.php\nAplicación: Tarjetas personalizadas\n\nAutor: Devta Singh\nFecha: 2019-03-27\nCon un enlace que Monta las FACTURA EN UN PDF\n\nCambios:\n//Genera el código QR con una URL para esta tarjeta\n\n//factura_png_v1.01a.php\nAñadimos la generación desde las variables (no desde el formulario)\nPara poder alimentarlo desde la BBDD\n\n\n\nAñade la tarjeta a la base de datos\n1 Crea una redirección para esta FACTURA (personalizada)\n2 Graba la FACTURA en una carpeta de tarjetas acabadas, para poder listarla\n3 Borra las tarjetas anteriores\n\n*/\n\n\n/*\nCuando llega desde la lista de facturas:\nhttp://localhost:8888/toolbox/tarjetas/texto_sobre_imagen.php?id=42\nY no carga ninguna imagen, debería cargar al menos la plantilla png seleccionada (id=42)\n\nCuando se acciona el botón GENERAR del formulario:\nhttp://localhost:8888/toolbox/tarjetas/texto_sobre_imagen.php?buscar_imagen=1\n\n\n*/\n\n\n//http://localhost:8888/toolbox/tarjetas/texto_sobre_imagen.php?buscar_imagen=1&lugar=madrid&tel=662%20529%20000&email=madrid@circulodesanacion.org&poblacion=Madrid&direccion1=O%27donnell&direccion2=C/Hermosilla,%20126\n\n\nerror_reporting(15);\nini_set(\"display_errors\",1);\n\nrequire(\"inc/config.inc.php\");\n\n$directorio=\"./fondos\";\n$ruta_cfg=\"./cfg\";\n$msg=\"\";\n\nlist($segundos,$micro)=explode(\" \", microtime());\n$pre_idk = (($segundos + $micro).  $_SERVER[\"HTTP_USER_AGENT\"] .  $_SERVER[\"REMOTE_ADDR\"]);\n$md5 = md5($pre_idk);\n$idkp = substr($md5, -3) . substr($md5, 0,3);\n\n/*\nif(!isset($_REQUEST[\"buscar_imagen\"])){\n\theader(\"Location: seleccionar_tarjeta.php\");\n}\n\n$d= opendir($directorio);\n//print \"Abierto el directorio: $directorio<br>\";\n\nif(!isset($_REQUEST[\"fondo\"])){\n\t header(\"Location: seleccionar_tarjeta.php?msg=Debe+Seleccionar+una+Tarjeta\");\n}\n$fich = $_REQUEST[\"fondo\"];\n$fondo = $_REQUEST[\"fondo\"];\n*/\n//$fondo = \"fondos/MDC_para_personalizar.png\";\n\n\n//recuperamos las variables de texto\n\n//$fondo = \"fondos/Tarjeta_MDC_con_fondo_prueba_para_QR.png\";\n//$fondo = \"$fondofondos/Tarjeta_MDC_con_fondo_prueba_para_QR.png\";\n\nif(isset($_REQUEST[\"fondo\"])){\n\t$fondo = $_REQUEST[\"fondo\"];\n//}elseif(file_exists($directorio.\"/\".\"\")){\n//}elseif(file_exists(\"fondos/Factura_unamente_blanco.png\")){\t\n}elseif(file_exists(\"./fondos/papel_factura.png\")){\t\t\n\t//$fondo = \"./fondos/Factura_unamente_blanco.png\";\n\t$fondo = \"./fondos/papel_factura.png\";\n\t//$fondo = $_REQUEST[\"fondo\"];\n}else{\n\t//$fondo = \"fondos/Factura_unamente_blanco.png\";\n\t$fondo = \"./fondos/papel_factura.png\";\n\t\n}\n\nprint \"fondo: $fondo\";\n$tamano_bytes = filesize($fondo);\n\n//obtenemos las dimensiones de la imagen\nlist($a,$b) = getimagesize($fondo);\n//$aa = 600;\n$aa = 1122;\n$bb = round(($aa*$b)/$a);\n\n//$aa = 600;\n$aaa = 600;\n$bbb = round(($aaa*$b)/$a);\n\n\n//print \"a: $a, b:$b, aa:$aa => bb: $bb\";\n$datos_imagen = <<<fin\nImagen original <br>$fondo<br>ancho: $a, alto: $b\n<br>Mostrada: ancho:$aaa, alto:$bbb\n<br>Tamaño: $tamano_bytes bytes\nfin;\n\n\n\n\n\n\n/////////////////////////////////////////\n/////////////////////////////////////////\n/////////////////////////////////////////\n\n/////////////\n//CONFIGURACIONES\n/////////////\n/*\nGuardamos las configuraciones\n*/\n// if(isset($_REQUEST[\"guardar_configuracion\"]) && isset($_REQUEST[\"configuracion\"])){\n// \t//recuperamos los campos del formulario y los guardamos en un fichero .cfg\n// \tprint \"GUARDANDO CONFIGURACION\";\n// \t//print nl2br(print_r($_REQUEST,1));\n// \t$datos_configuracion=array();\n// \tforeach($_REQUEST as $_campo => $_valor){\n// \t\tprint \"$_campo: $_valor<br>\";\n// \t}\n// \t//abrimos el fichero\n// }else{\n// \t//no hacemos nada\n// }\n\n// $html_configuraciones=\"<select name=\\\"configuracion\\\">\";\n// $html_configuraciones.=\"<option>-seleccione configuración-</option>\";\n// /*\n// Recuperamos las configuraciones\n// */\n// //Buscamos ficheros .cfg\n// $d_cfg=opendir($ruta_cfg);\n// while($f_cfg=readdir($d_cfg)){\n// \tif(is_dir($ruta_cfg.\"/\".$f_cfg)){\n// \t\tprint \"$f_cfg - seguimos...<br>\";\n// \t\tcontinue;\n// \t}\n// \tif((substr($f_cfg,-4)!=\".cfg\")){\n// \t\tprint \"$f_cfg - saltamos...<br>\";\n// \t\tcontinue;\n// \t}else{\n// \t\tprint \"<strong>$f_cfg</strong> - ENCONTRADO<br>\";\n// \t\t$html_configuraciones.=\"<option value=\\\"$f_cfg\\\">$f_cfg</option>\";\n// \t}\n// }\n// $html_configuraciones.=\"</select>\";\n/////////////\n// FIN CONFIGURACIONES\n/////////////\n$html_configuraciones=\"\";\n\n/////////////////////////////////////////\n/////////////////////////////////////////\n/////////////////////////////////////////\n/////////////////////////////////////////\t\n\n\n\n\n\n$html=<<<fin\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>Document</title>\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/estilos.css\"/>\n\t\n\t<!--\n\t<script type=\"text/javascript\" src=\"http://www.technicalkeeda.com/js/javascripts/plugin/jquery.js\"></script>\n\t-->\n\t<script type=\"text/javascript\" src=\"js/jquery.js\"></script>\n\n\t<script> \n\t\tvar campo_activo=\"campo1\";\n\t\tvar x,y,xx,yy,a,b,aa,bb;\n\t\tvar nombre_campo=\"\";\n\n\t\t$(document).ready(function() {\n\t\t\t $('#tarjeta').click(function(e) {\n\t\t\t\ta=$a;\n\t\t\t\tb=$b;\n\t\t\t\taa=$aa;\n\t\t\t\tbb=$bb;\n\t\t\t\t//alert('leyendo xy en imagen, campo_activo:'+campo_activo);\n\t\t\t\tvar offset = $(this).offset();\n\n\t\t\t\t//El codigo viejo hacía todo junto\n\t\t\t\t//$('#x_axis').html(e.clientX - offset.left);\n\t\t\t\t//$('#y_axis').html(e.clientY - offset.top);\n\n\t\t\t\t//hacemos el calculo para obtener x e y\n\t\t\t\tx=e.clientX - offset.left;\n\t\t\t\ty=e.clientY - offset.top;\n\n\t\t\t\t$('#x_axis').html(x);\n\t\t\t\t$('#y_axis').html(y);\n\n\t\t\t\t//$bb = round(($aa*$b)/$a);\n\t\t\t\txx=Math.round((a*x)/aa); \n\t\t\t\tyy=Math.round((b*y)/bb); \n\n\t\t\t\t$('#textos_x_'+campo_activo).val(xx);\n\t\t\t\t$('#textos_y_'+campo_activo).val(yy);\n\t\t\t });\n\n\t\t\t //ocultamos las instrucciones\n\t\t\t $('#instrucciones').fadeOut(1000);\n\n\t\t});\n\t</script>\n</head>\n<body>\n<h3>Creador de Tarjetas</h3>\n<div>\n<div id=\"barra\">\n\t<form action=\"?buscar_imagen=1\" method=\"post\">\n\t<input type=\"submit\" value=\"Generar FACTURA\">\n\n\n\n\t<input type=\"text\" name=\"fondo\" value=\"$fondo\">\n\t<br><a href=\"listado_tarjetas.php\">Listado de FACTURAS</a>\n\t<!--<br><a href=\"seleccionar_tarjeta.php\">Cambiar imagen de fondo</a>-->\n\t<!--<br>X:<span id=\"x_axis\">0</span> / Y:<span id=\"y_axis\">0</span>-->\n\n\t<br><span onclick=\"$('#instrucciones').toggle();\">Instrucciones...</span>\n\t<div id=\"instrucciones\">Creador de tarjetas - v3.01a<br>\n\t1. Utilizar los campos para poner los textos (de una sola línea)\n\t<br>2. pulsa en el botón GENERAR FACTURA\n\t<br>3. Sobre la imagen, dale a guardar imagen como y descargala\n\t<br>4. Puedes generar un PDF con la imágen.\n\t<br>4. Puedes enviar la factura al email del destinatario.\n\t</div>\n\t<br>\nfin;\n\n////////////////\n//FUENTES\n////////////////\n\n////////////////\n//FIN FUENTES\n////////////////\n$html_fuentes=\"\";\n\n\n\n\n\n////////////////\n//FIN CAMPOS\n////////////////\n\n\n////////////////\n//FIN CAMPOS\n////////////////\n\n\n\n//Esto va al inicio\n$visitas = 0;\n$cambios = 0;\n$ip = $_SERVER[\"REMOTE_ADDR\"];\n$nav = $_SERVER[\"HTTP_USER_AGENT\"];\n$alta = date(\"Y-m-d H:i:s\", time());\n$activo=1;\n$notas=\"\";\n\n$campos_texto=explode(\",\", \"lugar,tel1,tel2,email,direccion1,direccion2,direccion3,notas\");\nforeach($campos_texto as $campo => $valor){\n\t$valor = addslashes($valor);\n\t//$valor = str_replace(\"'\",\"´\",$valor);\n\t$$campo = $valor;\n}\n\n\n\n\n//si se indica el id, podemos probar a recuperar los datos de la tabla\nif(isset($_REQUEST[\"id\"])){\n\t$id=$_REQUEST[\"id\"];\n\n\n\t$sql_recupera = \"SELECT * FROM tarjetas WHERE id='$id'\";\n\tif(\n\t\t$resultados = $mysqli->query($sql_recupera)\n\t){\n\t\tif($resultados->num_rows > 0){\n\t\t\t$datos = $resultados->fetch_assoc();\n\t\t\tforeach($datos as $campo=>$valor){\n\t\t\t\t$$campo = $valor;\n\t\t\t}//fin foreach\n\t\t\t//$id= $datos[\"id\"];\n\t\t\t//$cambios = $datos[\"cambios\"] + 1;\n\t\t\t$cambios++;\n\t\t}else{\n\t\t\t$msg=\"No hay ese registro ($id)\";\n\t\t}\n\t}else{\n\t\t$errno = $mysqli->errno;\n\t\t$error = $mysqli->error;\n\t\t$msg=\"error ($errno) $error <br>al ejecutar consulta<br>SQL: $sql_recupera;\";\n\t}\n\n\n\n\n}else{\n\t//como no llega por id\n\t//recogemos los valores de los campos de texto\n//------------\n//FACnombre FACcif FACdireccion1 FACdireccion2 FACdireccion3 FACcodigopostal FACnumero FACfecha FACbase FACiva FACimporte\n\n\tif(isset($_REQUEST[\"id\"])){\n\t\t$id = $_REQUEST[\"id\"];\n\t}else{\n\t\t$id=\"\";\n\t}\n\n\n\tif(isset($_REQUEST[\"FACtitulo\"])){\n\t\t$FACtitulo = utf8_decode($_REQUEST[\"FACtitulo\"]);\n\t}else{\n\t\t$FACtitulo=\"\";\n\t}\n\n\n\tif(isset($_REQUEST[\"FACdescripcion1\"])){\n\t\t$FACdescripcion1 = utf8_decode($_REQUEST[\"FACdescripcion1\"]);\n\t}else{\n\t\t$FACdescripcion1=\"\";\n\t}\t\n\t\n\tif(isset($_REQUEST[\"FACdescripcion2\"])){\n\t\t$FACdescripcion2 = utf8_decode($_REQUEST[\"FACdescripcion2\"]);\n\t}else{\n\t\t$FACdescripcion2=\"\";\n\t}\t\n\t\n\tif(isset($_REQUEST[\"FACdescripcion3\"])){\n\t\t$FACdescripcion3 = utf8_decode($_REQUEST[\"FACdescripcion3\"]);\n\t}else{\n\t\t$FACdescripcion3=\"\";\n\t}\t\n\n\n\n\n\tif(isset($_REQUEST[\"FACnombre\"])){\n\t\t$FACnombre = utf8_decode($_REQUEST[\"FACnombre\"]);\n\t}else{\n\t\t$FACnombre=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACcif\"])){\n\t\t$FACcif = utf8_decode($_REQUEST[\"FACcif\"]);\n\t}else{\n\t\t$FACcif=\"\";\n\t}\n\n\n\tif(isset($_REQUEST[\"FACdireccion1\"])){\n\t\t$FACdireccion1 = utf8_decode($_REQUEST[\"FACdireccion1\"]);\n\t}else{\n\t\t$FACdireccion1=\"\";\n\t}\t\n\t\n\tif(isset($_REQUEST[\"FACdireccion2\"])){\n\t\t$FACdireccion2 = utf8_decode($_REQUEST[\"FACdireccion2\"]);\n\t}else{\n\t\t$FACdireccion2=\"\";\n\t}\t\n\t\n\tif(isset($_REQUEST[\"FACdireccion3\"])){\n\t\t$FACdireccion3 = utf8_decode($_REQUEST[\"FACdireccion3\"]);\n\t}else{\n\t\t$FACdireccion3=\"\";\n\t}\t\n\n\tif(isset($_REQUEST[\"FACcodigopostal\"])){\n\t\t$FACcodigopostal = utf8_decode($_REQUEST[\"FACcodigopostal\"]);\n\t}else{\n\t\t$FACcodigopostal=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACcodigopostal\"])){\n\t\t$FACcodigopostal = utf8_decode($_REQUEST[\"FACcodigopostal\"]);\n\t}else{\n\t\t$FACcodigopostal=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACqr\"])){\n\t\t$FACqr = utf8_decode($_REQUEST[\"FACqr\"]);\n\t}else{\n\t\t$FACqr=\"\";\n\t}\t\n\n\n\n\tif(isset($_REQUEST[\"FACemail\"])){\n\t\t$FACemail = utf8_decode($_REQUEST[\"FACemail\"]);\n\t}else{\n\t\t$FACemail=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACtelefono\"])){\n\t\t$FACtelefono = utf8_decode($_REQUEST[\"FACtelefono\"]);\n\t}else{\n\t\t$FACtelefono=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACcontacto\"])){\n\t\t$FACcontacto = utf8_decode($_REQUEST[\"FACcontacto\"]);\n\t}else{\n\t\t$FACcontacto=\"\";\n\t}\t\t\n\n\n\n\tif(isset($_REQUEST[\"FACnumero\"])){\n\t\t$FACnumero = utf8_decode($_REQUEST[\"FACnumero\"]);\n\t}else{\n\t\t$FACnumero=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACfecha\"])){\n\t\t$FACfecha = utf8_decode($_REQUEST[\"FACfecha\"]);\n\t}else{\n\t\t$FACfecha=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACbase\"])){\n\t\t$FACbase = utf8_decode($_REQUEST[\"FACbase\"]);\n\t}else{\n\t\t$FACbase=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACiva\"])){\n\t\t$FACiva = utf8_decode($_REQUEST[\"FACiva\"]);\n\t}else{\n\t\t$FACiva=\"\";\n\t}\n\n\tif(isset($_REQUEST[\"FACimporte\"])){\n\t\t$FACimporte = utf8_decode($_REQUEST[\"FACimporte\"]);\n\t}else{\n\t\t$FACimporte=\"\";\n\t}\n\n\n\n\n\n\t// if(isset($_REQUEST[\"lugar\"])){\n\t// \t$lugar = $_REQUEST[\"lugar\"];\n\t// }else{\n\t// \t$lugar=\"\";\n\t// }\t\n\n\t// if(isset($_REQUEST[\"lugar\"])){\n\t// \t$lugar = $_REQUEST[\"lugar\"];\n\t// }else{\n\t// \t$lugar=\"\";\n\t// }\n\n\t// if(isset($_REQUEST[\"lugar\"])){\n\t// \t$lugar = $_REQUEST[\"lugar\"];\n\t// }else{\n\t// \t$lugar=\"\";\n\t// }\t\n\n\t// if(isset($_REQUEST[\"lugar\"])){\n\t// \t$lugar = $_REQUEST[\"lugar\"];\n\t// }else{\n\t// \t$lugar=\"\";\n\t// }\n\n\t// if(isset($_REQUEST[\"lugar\"])){\n\t// \t$lugar = $_REQUEST[\"lugar\"];\n\t// }else{\n\t// \t$lugar=\"\";\n\t// }\t\t\t\t\t\t\t\t\n//------------\n\n\n\tif(isset($_REQUEST[\"poner_QR\"])){\n\t\t$poner_QR = 1;\n\t}else{\n\t\t$poner_QR = 0;\n\t}\n\n\tif(isset($_REQUEST[\"poner_LOGO\"])){\n\t\t$poner_LOGO = 1;\n\t}else{\n\t\t$poner_LOGO = 0;\n\t}\n\n}//fin else\n\n\n// $FACtitulo = utf8_encode($FACtitulo);\n// $FACdescripcion1 = utf8_encode($FACdescripcion1);\n// $FACdescripcion2 = utf8_encode($FACdescripcion2);\n// $FACdescripcion3 = utf8_encode($FACdescripcion3);\n// $FACnombre = utf8_encode($FACnombre);\n// $FACcif = utf8_encode($FACcif);\n// $FACdireccion1 = utf8_encode($FACdireccion1);\n// $FACdireccion2 = utf8_encode($FACdireccion2);\n// $FACdireccion3 = utf8_encode($FACdireccion3);\n// $FACbase = utf8_encode($FACbase);\n// $FACiva = utf8_encode($FACiva);\n// $FACimporte = utf8_encode($FACimporte);\n// $FACfecha = utf8_encode($FACfecha);\n// $FACnumero = utf8_encode($FACnumero);\n// $FACemail = utf8_encode($FACemail);\n// $FACtelefono = utf8_encode($FACtelefono);\n// $FACcontacto = utf8_encode($FACcontacto);\n\n\n// $FACtitulo = utf8_decode($FACtitulo);\n// $FACdescripcion1 = utf8_decode($FACdescripcion1);\n// $FACdescripcion2 = utf8_decode($FACdescripcion2);\n// $FACdescripcion3 = utf8_decode($FACdescripcion3);\n// $FACnombre = utf8_decode($FACnombre);\n// $FACcif = utf8_decode($FACcif);\n// $FACdireccion1 = utf8_decode($FACdireccion1);\n// $FACdireccion2 = utf8_decode($FACdireccion2);\n// $FACdireccion3 = utf8_decode($FACdireccion3);\n// $FACbase = utf8_decode($FACbase);\n// $FACiva = utf8_decode($FACiva);\n// $FACimporte = utf8_decode($FACimporte);\n// $FACfecha = utf8_decode($FACfecha);\n// $FACnumero = utf8_decode($FACnumero);\n// $FACemail = utf8_decode($FACemail);\n// $FACtelefono = utf8_decode($FACtelefono);\n// $FACcontacto = utf8_decode($FACcontacto);\n\n\n\t$html.=<<<fin\n\tDatos de la Factura:\n\t\t<table>\n\t\t\t<tr>\n\t\t\t\t<td>Título</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACtitulo\" value=\"$FACtitulo\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\n\n\t\t\t<tr>\n\t\t\t\t<td>Descripción:<br>\\<br>\\</td>\n\t\t\t\t<td>\n\t\t\t\t<input type=\"text\" name=\"FACdescripcion1\" value=\"$FACdescripcion1\"/>\n\t\t\t\t<br>\n\t\t\t\t<input type=\"text\" name=\"FACdescripcion2\" value=\"$FACdescripcion2\"/>\n\t\t\t\t<br>\n\t\t\t\t<input type=\"text\" name=\"FACdescripcion3\" value=\"$FACdescripcion3\"/>\n\t\t\t\t<br>\n\t\t\t\t</td>\n\t\t\t</tr>\t\t\t\t\t\t\t\t\t\n\n\t\t\t<tr>\n\t\t\t\t<td>Nombre</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACnombre\" value=\"$FACnombre\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>CIF:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACcif\" value=\"$FACcif\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>Dirección:<br>\\<br>\\</td>\n\t\t\t\t<td>\n\t\t\t\t<input type=\"text\" name=\"FACdireccion1\" value=\"$FACdireccion1\"/>\n\t\t\t\t<br>\n\t\t\t\t<input type=\"text\" name=\"FACdireccion2\" value=\"$FACdireccion2\"/>\n\t\t\t\t<br>\n\t\t\t\t<input type=\"text\" name=\"FACdireccion3\" value=\"$FACdireccion3\"/>\n\t\t\t\t<br>\n\t\t\t\t</td>\n\t\t\t</tr>\t\n\t\t\t<tr>\n\t\t\t\t<td>C.Postal:</td>\n\t\t\t\t<td>\n\t\t\t\t<input type=\"text\" name=\"FACcodigopostal\" value=\"$FACcodigopostal\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\n\t\t\t<tr>\n\t\t\t\t<td>Email:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACemail\" value=\"$FACemail\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>Teléfono:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACtelefono\" value=\"$FACtelefono\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>Contacto:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACcontacto\" value=\"$FACcontacto\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\t\t\t\t\t\t\n\n\t\t\t<tr>\n\t\t\t\t<td>Número:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACnumero\" value=\"$FACnumero\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>Fecha:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACfecha\" value=\"$FACfecha\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>Base:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACbase\" value=\"$FACbase\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>IVA:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACiva\" value=\"$FACiva\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>Importe:</td>\n\t\t\t\t<td><input type=\"text\" name=\"FACimporte\" value=\"$FACimporte\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\n\t\t\n\t\t\t</tr>\n\t\t\t\t<td>logo</td>\n\t\t\t\t<td>\n\t\t\t\t\t<input type=\"checkbox\" name=\"poner_logo\" value=\"1\"/>¿Añadir código logo?\n\t\t\t\t\t<br><input type=\"text\" name=\"direccion3\" value=\"http://www.estemes.com/facturas/logo/?=\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\n\n\t\t\t</tr>\n\t\t\t\t<td>QR</td>\n\t\t\t\t<td>\n\t\t\t\t\t<input type=\"checkbox\" name=\"poner_QR\" value=\"1\"/>¿Añadir código QR?\n\t\t\t\t\t<br><input type=\"text\" name=\"direccion3\" value=\"http://www.estemes.com/facturas/qr/?=\"/>\n\t\t\t\t</td>\n\t\t\t</tr>\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t</table>\n\t\t\n\nfin;\n\n\t$html.=<<<fin\n\t<br>\n\t<input type=\"submit\" value=\"Generar Imagen\">\n\t</form>\n\t$datos_imagen\n\t</div>\n\t<div id=\"resultado\">\nfin;\n\n\t//imprimimos el html\n\tprint $html;\n\t\n\n///////////////\n// IMPRESION DE TEXTOS\n///////////////\t\n\t// if(isset($_REQUEST[\"textos\"])){\n\n\t// $fondo = $_REQUEST[\"fondo\"];\n\t// $textos = $_REQUEST[\"textos\"];\n\n\t// $im = imagecreatefrompng($fondo);\n\t// //header(\"Content-type: image/png;\");\n\t// //imagepng($im);\n\t// //$color = imagecolorallocate($im, 0,0,0);\n\t// $color = imagecolorallocate($im, 255,255,255);\n\n\t// foreach($textos as $campo => $datos){\n\n\t// \tif(isset($_REQUEST[\"chk_campo\"][$campo])){\n\t// \t\t$x = round($datos[\"x\"]);\n\t// \t\t$y = round($datos[\"y\"]);\n\t// \t\t$fuente = $datos[\"font\"];\n\t// \t\t$texto = $datos[\"texto\"];\n\t// \t\t$tam = $datos[\"tam\"];\n\t// \t\t$ang = $datos[\"ang\"];\n\t// \t\t//$color = $datos[\"color\"];\n\n\t// \t\timagettftext($im, $tam, $ang, $x, $y, $color, $fuente, $texto);\n\t// \t}\n\t// }\n///////////////\n// IMPRESION DE TEXTOS\n///////////////\t\n\nif(isset($_REQUEST[\"fondo\"])){\n\n\t$im = imagecreatefrompng($fondo);\n\t//header(\"Content-type: image/png;\");\n\t//imagepng($im);\n\t//$color = imagecolorallocate($im, 0,0,0);\n\t$color = imagecolorallocate($im, 255,255,255);\n\t$blanco = imagecolorallocate($im, 255,255,255);\n\t$negro = imagecolorallocate($im, 0,0,0);\n\n\t$fuente1=\"fuentes/Pirulen/pirulen.ttf\";\n\t$fuente2=\"fuentes/lato/Lato-Heavy.ttf\";\n\t$fuente3=\"fuentes/lato/Lato-ThinItalic.ttf\";\n\t$fuente4=\"fuentes/windings/wingdings.ttf\";\n\n\n\t$x = 207;\n\t$ang=0;\n\t$tam1=28;\n\t$tam2=27;\n\t$esp1=24;\n\t$esp2=37;\n\t$y = 1500;\n\n\t// foreach($_REQUEST as $var=>$val){\n\t// \tprint \"<br>$var: $val\";\n\t// }\n\n\tif(isset($_REQUEST[\"FACtitulo\"]) && !empty($_REQUEST[\"FACtitulo\"])){\n\t\t$x = 207;\n\t\t\n\t\t//imprimimimos FACtitulo\n\t\timagettftext($im, 48, $ang, $x, $y, $negro, $fuente2, $FACtitulo);\n\t\t$y+=30;\n\t}\n\t$y+=64;//espacio extra\n\n\n\n\tif(isset($_REQUEST[\"FACdescripcion1\"]) && !empty($_REQUEST[\"FACdescripcion1\"])){\n\t\t$x = 207;\n\n\t\t//imprimimimos FACdescripcion\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACdescripcion1);\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACdescripcion2\"]) && !empty($_REQUEST[\"FACdescripcion2\"])){\n\t\t$x = 207;\n\n\t\t//imprimimimos FACdescripcion\n\t\timagettftext($im, 28, $ang, $x, $y, $negro, $fuente2, $FACdescripcion2);\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACdescripcion3\"]) && !empty($_REQUEST[\"FACdescripcion3\"])){\n\t\t$x = 207;\n\n\t\t//imprimimimos FACdescripcion\n\t\timagettftext($im, 28, $ang, $x, $y, $negro, $fuente2, $FACdescripcion3);\n\t\t$y+=30;\n\t}\n\t$y+=64;//espacio extra\t\n\n\n\n\n\n\n\n\n\n\n\n\n\tif(isset($_REQUEST[\"FACnombre\"]) && !empty($_REQUEST[\"FACnombre\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Nombre:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACnombre);\n\t\t\n\t\t$y+=30;\n\t\t//print \"<br>***FACnombre\";\n\t}else{\n\t\t//print \"<br>---FACnombre\";\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACcif\"]) && !empty($_REQUEST[\"FACcif\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"CIF:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACcif\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACcif);\n\t\t$y+=30;\n\t\t//print \"<br>***FACcif\";\n\t}\n\t$y+=64;//espacio extra\n\n\tif(isset($_REQUEST[\"FACdireccion1\"]) && !empty($_REQUEST[\"FACdireccion1\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Dirección:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACdireccion1\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACdireccion1);\n\t\t$y+=30;\n\t\t//print \"<br>***FACnombre\";\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACdireccion2\"]) && !empty($_REQUEST[\"FACdireccion2\"])){\n\t\t//imagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Nombre:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACdireccion2\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACdireccion2);\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACdireccion3\"]) && !empty($_REQUEST[\"FACdireccion3\"])){\n\t\t//imagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACdireccion3\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACdireccion3);\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\n\tif(isset($_REQUEST[\"FACcodigopostal\"]) && !empty($_REQUEST[\"FACcodigopostal\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Código Postal:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACcodigopostal\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACcodigopostal);\n\t\t$y+=30;\n\t}\n\t$y+=64;//espacio extra\n\n\tif(isset($_REQUEST[\"FACnumero\"]) && !empty($_REQUEST[\"FACnumero\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Número:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACnumero\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACnumero);\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACfecha\"]) && !empty($_REQUEST[\"FACfecha\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Fecha:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACfecha\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACfecha);\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\n\n\tif(isset($_REQUEST[\"FACestado\"]) && !empty($_REQUEST[\"FACestado\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Fecha:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACfecha\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACestado);\n\t\t$y+=30;\n\t}\n\t$y+=64;//espacio extra\n\n\n\n\tif(isset($_REQUEST[\"FACbase\"]) && !empty($_REQUEST[\"FACbase\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Base:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACbase\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACbase.\"€\");\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACiva\"]) && !empty($_REQUEST[\"FACiva\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Iva:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACiva\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACiva.\"€\");\n\t\t$y+=30;\n\t}\n\t$y+=34;//espacio extra\n\n\tif(isset($_REQUEST[\"FACimporte\"]) && !empty($_REQUEST[\"FACimporte\"])){\n\t\t$x = 207;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"Importe:\");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=800;\n\n\t\t//imprimimimos FACimporte\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $FACimporte.\"€\");\n\t\t$y+=30;\n\t}\n\t$y+=24;//espacio extra\n\n\n\n\n\n\t//print \"Trozos:\";\n\t$trozos = explode(\"/\", $fondo);\n\t$n=sizeof($trozos);\n\t//print_r($trozos);\n\t\n\t$fichero=$trozos[($n -1)];\n\t$ahora=time();\n\t\n\tlist($microsegundos, $segundos) = explode(\" \", microtime());\n\tprint \"<br>segundos: $segundos<br>microsegundos: $microsegundos\";\n\t$imagen = \"$ahora.png\";\n\n\t//$imagen = \"$lugar-$ahora.jpeg\";\n\t$destino = \"imagenes/$imagen\";\n\t//print \"<br>n: $n - fichero: $fichero - destino: $destino<br>\";\n\t\n\n\n\n\n/*\nif($poner_LOGO){\n\n\t//Leemos el logo en su propio fichero\n\n\t$im_logo=imagecreatefrompng(\"./logos/logo_KY_300px.png\");\n\n\t/////////////////////////////\n\t//MONTAMOS EL LOGO EN LA IMAGEN\n\t/////////////////////////////\n\t\n\t//Copiamos el LOGO de la imagen del LOGO en la imagen de la tarjeta\n\t//bool imagecopy ( resource $dst_im , resource $src_im , int $dst_x , int $dst_y , int $src_x , int $src_y , int $src_w , int $src_h )\n\n\t//Establecemos el ancho y alto del código LOGO\n\tlist($src_w, $src_h)=getimagesize(\"./logos/logo_KY_300px.png\");\n\n\t//Posicion Y inferior del codigo LOGO\n\t$base = 180;\n\n\t//Calculamos la posición superior del codigo LOGO\n\t$pos_y = $base - $src_h;\n\n\t//Establecemos la posicion superior mínima, para que no se pegue al texto\n\t//pero que si hay poco texto, se use esta como mínimo\n\t$pos_y_minima = ($y - 15);\n\n\t//Si la posición dada por el ultimo texto, es menor a la posición minima,\n\t//se utiliza la posición minima establecida anteriormente,\n\t//así el código LOGO no se sube demasiado, y se queda abajo\n\tif($pos_y < $pos_y_minima){\n\t\t$pos_y = $pos_y_minima;\n\t}\n\n\t//establecemos el resto de posiciones para copiar el LOGO dentro de la tarjeta\n\t$dst_x=850;//la posicion X, es la separación del margen izquierdo\n\t//$dst_y=$pos_y; //($y - 15);//$base - $src_h;//la posición superior izquierda del LOGO\n\t$dst_y=100; //($y - 15);//$base - $src_h;//la posición superior izquierda del LOGO\n\n\t$src_x=0;//esquina inicio izquierda del LOGO\n\t$src_y=0;//esquina inicio superior del LOGO\n\n\t//copiamos el LOGO de su imagen a la imagen de la tarjeta\n\timagecopy($im, $im_logo, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h);\n\n}//fin LOGO\n*/\n\n\nif($poner_QR){\n\t//////////////////\n\t// QR\n\t//////////////////\n\t\t//retomamos la imagen generada y le creamos un QR\n\t\t$url=\"http://unamente.es/r/f?idkp=$idkp\";\n\t\t$_url = $url;\n\t\twhile(strpos($_url, \" \")){\n\t\t\t$_url = str_replace(\" \", \"-\", $_url);\n\t\t}\n\t\t$_lugar = str_replace(\" \", \"-\", $_url);\n\n\t\t$url_destino = \"http://unamente.es/r/f?idkp=$idkp\";\n\n\t\t$PNG_TEMP_DIR = \"QR\";//dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;\n\t    \n\t    //html PNG location prefix\n\t    $PNG_WEB_DIR = 'temp/';\n\n\t    include \"inc/qr/qrlib.php\";\n\t    $tam_qr = 6;//así es un poco más grande y se lee mejor en la tarjeta\n\t    $qr_filename = $PNG_TEMP_DIR.'QR_'.md5($url_destino.'|L|'.$tam_qr).'.png';\n\t    $qr_filename2 = $PNG_TEMP_DIR.'QR_'.md5($url_destino.'|L|'.$tam_qr).'_2.png';\n\t    QRcode::png($url, \"qr/\".$qr_filename, 'L', $tam_qr, 2);\n\n\n\t/////////////////\n\t// FILTRO\n\t/////////////////      \n\n\t    //Leemos el QR Generado en su propio fichero\n\n\t\t$im_filtro=imagecreatefrompng(\"qr/\".$qr_filename);\n\t\t//bool imagefilter ( resource $image , int $filtertype [, int $arg1 [, int $arg2 [, int $arg3 [, int $arg4 ]]]] )\n\n\t\t//Invertimos el color\n\t\t//if(_p){print \"<br>1. filtro imagen invertida B/N \";}\n\t\tif(imagefilter($im_filtro, IMG_FILTER_NEGATE)){\n\t\t\t//if(_p){print \"1. transformación exitosa\";}\n\t\t}else{\n\t\t\t//if(_p){print \"1. error en la transformación\";}\n\t\t}\n\n\t\t//Lo ponemos en escala de grises\n\t\t//IMG_FILTER_GRAYSCALE\n\t\t//if(_p){print \"<br>2. filtro escala de grises \";}\n\t\tif(imagefilter($im_filtro, IMG_FILTER_GRAYSCALE)){\n\t\t\t//if(_p){print \"2. transformación exitosa\";}\n\t\t}else{\n\t\t\t//if(_p){print \"2. error en la transformación\";}\n\t\t}\n\n\t\t/*\n\t\t//volcamos a la imagen qr temporal\n\t\timagepng($im_filtro, \"qr/\".$qr_filename2);\n\n\n\t\t//leemos esa imagen del QR con filtros aplicados\n\t\t//para colorearlo de morado\n\t\t$im_filtro=imagecreatefrompng(\"qr/\".$qr_filename2);\n\n\t\t//IMG_FILTER_BRIGHTNESS //cambia el brillo de -255 a 255\n\t\t//if($im && (imagefilter($im, IMG_FILTER_BRIGHTNESS, 80))){\n\t\t//if(_p){print \"<br>3. filtro COLORIZE \";}\n\t\tif($im_filtro && (imagefilter($im_filtro, IMG_FILTER_COLORIZE, 66, 66, 99, 0))){\n\t\t\t//if(_p){print \"3. transformación exitosa\";}\n\t\t}else{\n\t\t\t//if(_p){print \"3. error en la transformación\";}\n\t\t}\n\t\t*/\n\n\t\t//IMG_FILTER_COLORIZE //colorea la imagen con tonos RGB y alfa\n\t\t//imagefilter($im_filtro, IMG_FILTER_COLORIZE, 9, 30, 55, 50);\n\t\t//volcamos a la imagen qr\n\t\timagepng($im_filtro, \"qr/\".$qr_filename2);\n\t\t//establecemos la ruta a la imagen para el HTML\n\t\t$qr2=\"<br><image src='qr/$qr_filename2'>\";\n\t\t//Establecemos la ruta para la imagen\n\t\t$qr0=\"qr/$qr_filename2\";\n\n\n\t      //print $qr2;\n\n\t    //AHORA LE HACEMOS UN FILTRO\n\n\n\n\t        \n\t/////////////////////////////\n\t//MONTAMOS EL QR EN LA IMAGEN\n\t/////////////////////////////\n\n\t//recuperamos la imagen qr\n\t//$im_qr=imagecreatefrompng(\"qr/\".$qr_filename2);\n\t$im_qr=imagecreatefrompng(\"$qr0\");\n\t//Copiamos el QR de la imagen del QR en la imagen de la tarjeta\n\t//bool imagecopy ( resource $dst_im , resource $src_im , int $dst_x , int $dst_y , int $src_x , int $src_y , int $src_w , int $src_h )\n\n\t//Establecemos el ancho y alto del código QR\n\tlist($src_w, $src_h)=getimagesize(\"qr/$qr_filename2\");\n\n\t//Posicion Y inferior del codigo QR\n\t$base = 1780;\n\n\t//Calculamos la posición superior del codigo QR\n\t$pos_y = $base - $src_h;\n\n\t//Establecemos la posicion superior mínima, para que no se pegue al texto\n\t//pero que si hay poco texto, se use esta como mínimo\n\t$pos_y_minima = ($y - 15);\n\n\t//Si la posición dada por el ultimo texto, es menor a la posición minima,\n\t//se utiliza la posición minima establecida anteriormente,\n\t//así el código QR no se sube demasiado, y se queda abajo\n\tif($pos_y < $pos_y_minima){\n\t\t$pos_y = $pos_y_minima;\n\t}\n\n\t//establecemos el resto de posiciones para copiar el QR dentro de la tarjeta\n\t$dst_x=2050;//la posicion X, es la separación del margen izquierdo\n\t//$dst_y=$pos_y; //($y - 15);//$base - $src_h;//la posición superior izquierda del QR\n\t$dst_y=1800; //($y - 15);//$base - $src_h;//la posición superior izquierda del QR\n\n\t$src_x=0;//esquina inicio izquierda del QR\n\t$src_y=0;//esquina inicio superior del QR\n\t//$src_w=\"\";//tomamos el ancho del QR\n\t//$src_h=\"\";//tomamos el alto dle QR\n\n\t//copiamos el QR de su imagen a la imagen de la tarjeta\n\timagecopy($im, $im_qr, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h);\n\n}//fin QR\n\t$y=2050;\n\tif(isset($_REQUEST[\"FACimporte\"]) && !empty($_REQUEST[\"FACimporte\"])){\n\t\t$x = 2050;\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente3, \"REF1: \");\n\t\t//imprimimimos FACnombre\n\n\t\t$x=2050;\n\t\t$y+=50;\n\t\t//imprimimimos FACimporte\n\t\timagettftext($im, 38, $ang, $x, $y, $negro, $fuente2, $idkp);\n\t\t$y+=50;\n\t}\n\t$y+=24;//espacio extra\n\n\n\n\n\n/////////////////////////////\n//GENERAMOS LA IMAGEN DEFINITIVA\n/////////////////////////////\n\n\t//imageinterlace ( resource $image [, int $interlace = 0 ] )\n\timageinterlace ($im, 0);\n\tprint \"<br>*** DESTINO: $destino ***\";\n\timagepng($im,\"$destino\",0,PNG_NO_FILTER);\n\t//imagepng($im,\"$destino\",0,PNG_NO_FILTER);\n\t$tarjeta = $destino;\n\n/////////////////////////////\n// FIN - GENERAMOS LA IMAGEN DEFINITIVA\n/////////////////////////////\n\n\n\n\nif(!isset($qr0)){\n\t$qr0 = \"\";\n}\n\n\n\n/*\nFACtitulo\nFACdescripcion1\nFACdescripcion2\nFACdescripcion3\nFACnombre\nFACcif\nFACdireccion1\nFACdireccion2\nFACdireccion3\nFACcodigopostal\nFACnumero\nFACfecha\nFACbase\nFACiva\nFACimporte\nFACqr\n*/\n\n/*\n'FACtitulo', 'FACdescripcion1', 'FACdescripcion2', 'FACdescripcion3', 'FACnombre', 'FACcif', 'FACdireccion1', 'FACdireccion2', 'FACdireccion3', 'FACcodigopostal', 'FACnumero', 'FACfecha', 'FACbase', 'FACiva', 'FACimporte', 'FACqr'\n*/\n\n/*\n'$FACtitulo', '$FACdescripcion1', '$FACdescripcion2', '$FACdescripcion3', '$FACnombre', '$FACcif', '$FACdireccion1', '$FACdireccion2', '$FACdireccion3', '$FACcodigopostal', '$FACnumero', '$FACfecha', '$FACbase', '$FACiva', '$FACimporte', '$FACqr'\n*/\n\n\n\n/*\n'FACtitulo', 'FACdescripcion1', 'FACdescripcion2', 'FACdescripcion3', 'FACnombre', 'FACcif', 'FACdireccion1', 'FACdireccion2', 'FACdireccion3', 'FACcodigopostal', 'FACnumero', 'FACfecha', 'FACbase', 'FACiva', 'FACimporte', 'FACqr'\n*/\n\n/*\n'$FACtitulo', '$FACdescripcion1', '$FACdescripcion2', '$FACdescripcion3', '$FACnombre', '$FACcif', '$FACdireccion1', '$FACdireccion2', '$FACdireccion3', '$FACcodigopostal', '$FACnumero', '$FACfecha', '$FACbase', '$FACiva', '$FACimporte', '$FACqr'\n*/\n\n\n///////////////////////////////\n///////////////////////////////\n///////////////////////////////\n///////////////////////////////\n\n\n\n//////////////////////////\n/*\n$SQL_buscar = \"SELECT * FROM facturas WHERE\nFACtitulo = '$FACtitulo' OR \nFACdescripcion1 = '$FACdescripcion1' OR \nFACdescripcion2 = '$FACdescripcion2' OR \nFACdescripcion3 = '$FACdescripcion3' OR \nFACnombre = '$FACnombre' OR \nFACcif = '$FACcif' OR \nFACdireccion1 = '$FACdireccion1' OR \nFACdireccion2 = '$FACdireccion2' OR \nFACdireccion3 = '$FACdireccion3' OR \nFACcodigopostal = '$FACcodigopostal' OR \nFACnumero = '$FACnumero' OR \nFACfecha = '$FACfecha' OR \nFACbase = '$FACbase' OR \nFACiva = '$FACiva' OR \nFACimporte = '$FACimporte' OR \nFACqr = '$FACqr'\n\";\n\n\n\n\n$SQL_nueva = \"INSERT INTO facturas SET\nFACtitulo = '$FACtitulo',\nFACdescripcion1 = '$FACdescripcion1',\nFACdescripcion2 = '$FACdescripcion2',\nFACdescripcion3 = '$FACdescripcion3',\nFACnombre = '$FACnombre',\nFACcif = '$FACcif',\nFACdireccion1 = '$FACdireccion1',\nFACdireccion2 = '$FACdireccion2',\nFACdireccion3 = '$FACdireccion3',\nFACcodigopostal = '$FACcodigopostal',\nFACnumero = '$FACnumero',\nFACfecha = '$FACfecha',\nFACbase = '$FACbase',\nFACiva = '$FACiva',\nFACimporte = '$FACimporte',\nFACqr = '$FACqr'\n\";\n\n\n\n\n\n$SQL_modifica = \"UPDATE facturas SET\nFACtitulo = '$FACtitulo',\nFACdescripcion1 = '$FACdescripcion1',\nFACdescripcion2 = '$FACdescripcion2',\nFACdescripcion3 = '$FACdescripcion3',\nFACnombre = '$FACnombre',\nFACcif = '$FACcif',\nFACdireccion1 = '$FACdireccion1',\nFACdireccion2 = '$FACdireccion2',\nFACdireccion3 = '$FACdireccion3',\nFACcodigopostal = '$FACcodigopostal',\nFACnumero = '$FACnumero',\nFACfecha = '$FACfecha',\nFACbase = '$FACbase',\nFACiva = '$FACiva',\nFACimporte = '$FACimporte',\nFACqr = '$FACqr'\nWHERE id='$id'\n\";\n*/\n//////////////////////////\n//////////////////////////\n/*\n//$_md5 = md5($id);\n//$idk = substr($_md5, -3) . substr($_md5, 0,3);\n\n\nCREATE TABLE FACfacturas (\n\tid int not null auto_increment primary key,\n\tidk varchar(50) not null unique key,\n\tidkp varchar(50) not null unique key,\n\tFACtitulo varchar(255) null,\n\tFACdescripcion1 varchar(255) null, \n\tFACdescripcion2 varchar(255) null,\n\tFACdescripcion3 varchar(255) null,\n\tFACnombre varchar(255) null,\n\tFACcif varchar(25) null,\n\tFACdireccion1 varchar(90) null,\n\tFACdireccion2 varchar(90) null,\n\tFACdireccion3 varchar(90) null,\n\tFACcodigopostal varchar(25) null,\n\tFACemail varchar(255) null, \n\tFACtelefono varchar(50) null, \n\tFACcontacto varchar(50) null,\n\tFACnumero varchar(50) null,\n\tFACfecha datetime null,\n\tFACbase float(10,2) null default '0.0',\n\tFACiva float(10,2) null default '0.0',\n\tFACimporte float(10,2) null default '0.0',\n\tFACqr text null,\n\talta datetime null,\n\tultimo timestamp default CURRENT_TIMESTAMP,\n\testado enum('borrador','proforma','emitida','corregida','anulada','sustituida','cancelada','eliminada') default 'emitida'\n);\n//por si no hemos incluido el campo idkp\n//ALTER TABLE `FACfacturas` ADD `idkp` VARCHAR(50) NOT NULL AFTER `idk`, ADD UNIQUE (`idkp`);\n*/\n\n//////////////////////////\n//////////////////////////\n\n$SQL_buscar = \"SELECT * FROM FACfacturas WHERE\nFACtitulo = '$FACtitulo' OR \nFACdescripcion1 = '$FACdescripcion1' OR \nFACdescripcion2 = '$FACdescripcion2' OR \nFACdescripcion3 = '$FACdescripcion3' OR \nFACnombre = '$FACnombre' OR \nFACcif = '$FACcif' OR \nFACdireccion1 = '$FACdireccion1' OR \nFACdireccion2 = '$FACdireccion2' OR \nFACdireccion3 = '$FACdireccion3' OR \n\nFACemail = '$FACemail' OR \nFACtelefono = '$FACtelefono' OR \nFACcontacto = '$FACcontacto' OR \n\nFACcodigopostal = '$FACcodigopostal' OR \nFACnumero = '$FACnumero' OR \nFACfecha = '$FACfecha' OR \nFACbase = '$FACbase' OR \nFACiva = '$FACiva' OR \nFACimporte = '$FACimporte'\n\";\n/*\n OR \nFACqr = '$FACqr'\n\nFACalta = '$FACalta'\n\";\n*/\n\n\n\n$fecha_actual = date(\"Y-m-d H:i:s\", time());\n\n$sql_nueva = \"INSERT INTO FACfacturas SET\nidkp = '$idkp',\nFACtitulo = '$FACtitulo',\nFACdescripcion1 = '$FACdescripcion1',\nFACdescripcion2 = '$FACdescripcion2',\nFACdescripcion3 = '$FACdescripcion3',\nFACnombre = '$FACnombre',\nFACcif = '$FACcif',\nFACdireccion1 = '$FACdireccion1',\nFACdireccion2 = '$FACdireccion2',\nFACdireccion3 = '$FACdireccion3',\nFACcodigopostal = '$FACcodigopostal',\n\nFACemail = '$FACemail',\nFACtelefono = '$FACtelefono',\nFACcontacto = '$FACcontacto',\n\nFACnumero = '$FACnumero',\nFACfecha = '$FACfecha',\nFACbase = '$FACbase',\nFACiva = '$FACiva',\nFACimporte = '$FACimporte',\n\nFACqr = '$FACqr',\n\nalta = '$fecha_actual',\nultimo = CURRENT_TIMESTAMP,\nestado = 'emitida'\n\";\n\n\nif(isset($id) && !empty($id) && ($id > 0)){\n\t$_md5 = md5($id);\n\t$idk = substr($_md5, -3) . substr($_md5, 0,3);\n}else{\n\t$idk = \"\";\n}\n\n\n$sql_modifica = \"UPDATE facturas SET\nFACtitulo = '$FACtitulo',\nFACdescripcion1 = '$FACdescripcion1',\nFACdescripcion2 = '$FACdescripcion2',\nFACdescripcion3 = '$FACdescripcion3',\nFACnombre = '$FACnombre',\nFACcif = '$FACcif',\nidk = '$idk',\nidkp = '$idkp',\nFACdireccion1 = '$FACdireccion1',\nFACdireccion2 = '$FACdireccion2',\nFACdireccion3 = '$FACdireccion3',\nFACcodigopostal = '$FACcodigopostal',\nFACemail = '$FACemail',\nFACtelefono = '$FACtelefono',\nFACcontacto = '$FACcontacto',\nFACnumero = '$FACnumero',\nFACfecha = '$FACfecha',\nFACbase = '$FACbase',\nFACiva = '$FACiva',\nFACimporte = '$FACimporte',\nFACqr = '$FACqr'\nWHERE id='$id'\n\";\n\n\n\n\n///////////////////////////////\n///////////////////////////////\n///////////////////////////////\n///////////////////////////////\n\n\n\nif($mysqli->query($sql_nueva) && !$mysqli->error){\n\t//insertada como tarjeta nueva\n\t$id= $mysqli->insert_id;\n\t$msg = \"Tarjeta ($id) modificada con éxito<br>\";\n\t\n\t//generamos el idk famoso...\n\t$_md5 = md5($id);\n\t$idk = substr($_md5, -3) . substr($_md5, 0,3);\n\n\n}elseif($mysqli->errno == 1062){\n\n\t//fila duplicada, ya existe, hay que usar la otra SQL de modificación\n\t//Averiguamos la id de este registro\n\tif(($resultados = $mysqli->query($sql_buscar)) && !$mysqli->error){\n\t\tif($resultados->num_rows > 0){\n\t\t\t$datos = $resultados->fetch_assoc();\n\t\t\t$id= $datos[\"id\"];\n\t\t\t$cambios = $datos[\"cambios\"] + 1;\n\t\t}\n\n\t\t$sql_modifica = $_sql_modifica;\n\t\t$sql_modifica = str_replace(\"#id#\", $id, $sql_modifica);\n\t\t$sql_modifica = str_replace(\"#cambios#\", $cambios, $sql_modifica);\n\n\t\tif($mysqli->query($sql_modifica) && !$mysqli->error){\n\t\t\t$errno = $mysqli->errno;\n\t\t\t$error = $mysqli->error;\n\n\t\t\t//modificada con éxito\n\t\t\tif($mysqli->affected_rows > 0){\n\t\t\t\t//modificada\n\t\t\t\t$msg = \"Tarjeta ($id) modificada con éxito, con $cambios cambios\";\n\t\t\t}else{\n\t\t\t\t//no modificada\n\t\t\t\t$msg = \"Tarjeta NO modificada ¿Datos idénticos? <br>$sql_modifica\";\n\n\t\t\t}\n\t\t}else{\n\t\t\t$msg = \"Tarjeta NO modificada. Error($errno): <br>$error, en <br>SQL: $sql_modifica\";\n\t\t}\n\t}else{\n\t\t//hay errores al buscar la id\n\t\t$errno = $mysqli->errno;\n\t\t$error = $mysqli->error;\n\t\t$msg = \"Tarjeta NO encontrada. Error($errno): <br>$error, en <br>SQL: $sql_buscar\";\n\t}\n}else{\n\t//otro error en la consulta\n\t$errno = $mysqli->errno;\n\t$error = $mysqli->error;\n\t$msg = \"Tarjeta no guardada. Error($errno): <br>$error, en <br>SQL: $sql_nueva\";\n}\nprint \"<br>*** $msg +++\";\n\n\n\n        \n/////////////////////////////\n//VOLCAMOS EL HTML RESULTANTE\n/////////////////////////////\n\n\n\t//imagejpeg($im,\"$destino\",100);\n\tprint <<<fin\n\n\t<img src=\"$destino\" id=\"tarjeta\" class=\"imagen\"><br>\n\t<br>\n\t<form action=\"montar_tarjetas.php?imagen=$imagen\" method=\"post\">\t\n\t<input type=\"submit\" value=\"Montar tarjetas en A4\" class=\"chillon\">\n\t</form>\n\t</div>\nfin;\n\t\n}//fin if else\n\n\n\nprint <<<fin\n\t<!--$msg-->\n\t<img src=\"http://circulodesanacion.org/r/limpieza.php\"/>\n\t</div>\n</body>\n</html>\nfin;\n?>",
+			"file": "factura_png_v1.01a.php",
+			"file_size": 37899,
+			"file_write_time": 131990432780000000,
+			"settings":
+			{
+				"buffer_size": 37961,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php //formulario.php\n\nerror_reporting(15);\nini_set(\"display_errors\", 1);\ns\nrequire(\"inc/config.inc.php\");\n\n\n$html_base=<<<fin\n<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>#listado#</title>\n\t<link href=\"css/estilos.css\" type=\"text/css\" rel=\"stylesheet\"/>\n</head>\n<body>\nfin;\n\n//op=listado_facturas\nif(isset($_REQUEST[\"op\"]) && $_REQUEST[\"op\"]==\"listado_facturas\"){\n\t//mostrar listado de facturas\n\n\t//creamos el html del listado\n\n\t$_datos_factura = \"id, idk, idkp, FACtitulo, FACdescripcion1, FACdescripcion2, FACdescripcion3, FACnombre, FACcif, FACdireccion1, FACdireccion2, FACdireccion3, FACcodigopostal, FACemail, FACtelefono, FACcontacto, FACnumero, FACfecha, FACbase, FACiva, FACimporte, FACqr, alta, ultimo, estado FROM FACfacturas\";\n\n\t$sql_facturas = \"SELECT $_datos_factura FROM FACfacturas ORDER BY FACfecha ASC, FACnombre ASC\";\n\t$sql_facturas = \"SELECT * FROM FACfacturas ORDER BY FACfecha ASC, FACnombre ASC\";\n\n\tif($resultado = $mysqli->query($sql_facturas)){\n\t\n\n\t\t$html_facturas =<<<fin\n\t\t$html_base\n\n\t\t<table>\n\t\t<tr>\n\t\t\t<td colspan=\"6\">FACTURAS</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<th>nombre</th>\n\t\t\t<th>cif</th>\n\t\t\t<th>fecha</th>\n\t\t\t<th>base</th>\n\t\t\t<th>iva</th>\n\t\t\t<th>importe</th>\n\t\t</tr>\nfin;\n\t\t//recorremos las facturas\n\t\twhile($datos = $resultado->fetch_assoc()){\n\n\t\t\t//recorremos los campos de la factura\n\t\t\t// foreach($variables as $variable){\n\t\t\t// \tif(isset($datos[$variable])){\n\t\t\t// \t\t$$variable == $datos[$variable];\n\t\t\t// \t}else{\n\t\t\t// \t\t$$variable == \"\";\n\t\t\t// \t}\n\t\t\t// }\n\t\t\t$id = $datos[\"id\"];\n\t\t\t$idk = $datos[\"idk\"];\n\t\t\t$idkp = $datos[\"idkp\"];\n\t\t\t$FACtitulo = utf8_encode($datos[\"FACtitulo\"]);\n\t\t\t$FACdescripcion1 = utf8_encode($datos[\"FACdescripcion1\"]);\n\t\t\t$FACnombre = utf8_encode($datos[\"FACnombre\"]);\n\t\t\t$FACcif = utf8_encode($datos[\"FACcif\"]);\n\t\t\t$FACfecha = utf8_encode($datos[\"FACfecha\"]);\n\t\t\t$FACnumero = utf8_encode($datos[\"FACnumero\"]);\n\t\t\t$FACbase = $datos[\"FACbase\"];\n\t\t\t$FACimporte = $datos[\"FACimporte\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t\n\t\t\t/*\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t$FACiva = $datos[\"FACiva\"];\n\t\t\t*/\n\n\t\t\t//imprimimos la factura\n\t\t\t$html_facturas.=<<<fin\n\t\t\t<table>\n\t\t\t<tr>\n\t\t\t\t<td colspan=\"6\"><span class=\"FACtitulo\">$FACtitulo</span></td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td colspan=\"6\"><span class=\"FACdescripcion\">$FACdescripcion1</span></td>\n\t\t\t</tr>\n\n\n\t\t\t<tr>\n\t\t\t\t<td colspan=\"6\">\n\n\n\n\t\t\t\t</td>\n\t\t\t</tr>\n\n\t\t\t<tr>\n\t\t\t\t<td>\n\n\t\t\t\t\t<table>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>Nombre:</td>\n\t\t\t\t\t\t\t<td><strong>$FACnombre</strong></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>CIF:</td>\n\t\t\t\t\t\t\t<td><strong>$FACcif</strong></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\n\t\t\t\t\t<table>\n\t\t\t\t\t\t<tr>\t\n\t\t\t\t\t\t\t<td>Fecha: </td>\n\t\t\t\t\t\t\t<td>Número: </td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>$FACnumero:</td>\n\t\t\t\t\t\t\t<td>$FACnumero</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</table>\n\n\t\t\t\t\t<table>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>Base</td>\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<td>Iva</td>\n\t\t\t\t\t\t\t<td>Importe</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\t\n\t\t\t\t\t\t\t<td>$FACbase &euro;</td>\n\t\t\t\t\t\t\t<td>$FACiva &euro;</td>\n\t\t\t\t\t\t\t<td>$FACimporte &euro;</td>\n\t\t\t\t\t\t</tr>\t\t\t\t\t\t\n\t\t\t\t\t</table>\n\n\n\n\t\t\t\t</td>\n\t\t\t</tr>\n<!--\n\t\t\t<tr>\n\t\t\t\t$FACnombre</td>\n\t\t\t\t<td>$FACcif</td>\n\t\t\t\t<td>$FACfecha</td>\n\t\t\t\t<td><strong>$FACnumero</strong></td>\n\t\t\t\t<td>$FACbase &euro;</td>\n\t\t\t\t<td>$FACiva &euro;</td>\n\t\t\t\t<td>$FACimporte &euro;</td>\n\t\t\t</tr>\n-->\nfin;\n\n\t\t}\n\n\t\t$html_facturas.=<<<fin\n\t\t</table>\n\t\t<br>CODIGO DE PRUEBA - INICIO\n\t\t<br><a href=\"#_\" onclick=\"window.close();\">cerrar</a>\n\t\t<br><a href=\"#_\" onclick=\"window.opener.location.href='http://localhost:8888/toolbox/facturas_pdf/formulario.php?CAMBIANDO_LA_URL=1#_';window.close();\">a otro sitio</a>\n\t\t<br>FIN _ CODIGO PRUEBA\n\t\t<br>\nfin;\n\n\t\tprint $html_facturas;\n\t\texit();\n\n\t}else{\n\t\t//gestionamos el error\n\t\t$errno = $mysqli->errno;\n\t\t$error = $mysqli->error;\n\t\tprint \"Error ($errno) al generar listado de FACTURAS:<br>$error\";\n\t}\n}\n\n\n\n//la lista de variables\n$_variables =\"FACtitulo,FACdescripcion1,FACdescripcion2,FACdescripcion3,FACnombre,FACcif,FACdireccion1,FACdireccion2,FACdireccion3,FACcodigopostal,FACemail,FACtelefono,FACcontacto,FACnumero,FACfecha,FACbase,FACiva,FACimporte\";\n\n//lo convertimos en un array\n$variables=explode(\",\", $_variables);\n\n//recorremos el array\nforeach($variables as $variable){\n\tif(isset($_REQUEST[\"$variable\"])){\n\t\t$$variable = $_REQUEST[\"$variable\"];\n\t}else{\n\t\t$$variable = \"\";\n\t}\n}\n\n\n$html=<<<fin\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>Document</title>\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/estilos.css\"/>\n\t\n\t<!--\n\t<script type=\"text/javascript\" src=\"http://www.technicalkeeda.com/js/javascripts/plugin/jquery.js\"></script>\n\t-->\n\t<script type=\"text/javascript\" src=\"js/jquery.js\"></script>\n\n\t<script> \n\t\tvar campo_activo=\"campo1\";\n\t\tvar x,y,xx,yy,a,b,aa,bb;\n\t\tvar nombre_campo=\"\";\n\n\t\t$(document).ready(function() {\n\t\t\t $('#tarjeta').click(function(e) {\n\t\t\t\ta=$a;\n\t\t\t\tb=$b;\n\t\t\t\taa=$aa;\n\t\t\t\tbb=$bb;\n\t\t\t\t//alert('leyendo xy en imagen, campo_activo:'+campo_activo);\n\t\t\t\tvar offset = $(this).offset();\n\n\t\t\t\t//El codigo viejo hacía todo junto\n\t\t\t\t//$('#x_axis').html(e.clientX - offset.left);\n\t\t\t\t//$('#y_axis').html(e.clientY - offset.top);\n\n\t\t\t\t//hacemos el calculo para obtener x e y\n\t\t\t\tx=e.clientX - offset.left;\n\t\t\t\ty=e.clientY - offset.top;\n\n\t\t\t\t$('#x_axis').html(x);\n\t\t\t\t$('#y_axis').html(y);\n\n\t\t\t\t//$bb = round(($aa*$b)/$a);\n\t\t\t\txx=Math.round((a*x)/aa); \n\t\t\t\tyy=Math.round((b*y)/bb); \n\n\t\t\t\t$('#textos_x_'+campo_activo).val(xx);\n\t\t\t\t$('#textos_y_'+campo_activo).val(yy);\n\t\t\t });\n\n\t\t\t //ocultamos las instrucciones\n\t\t\t $('#instrucciones').fadeOut(1000);\n\n\t\t});\n\t</script>\n</head>\n<body>\n<h3>Creador de Tarjetas</h3>\n<div>\n<div id=\"barra\">\n\t<form action=\"?buscar_imagen=1\" method=\"post\">\n\t<input type=\"submit\" value=\"Generar FACTURA\">\n\n\t<input type=\"text\" name=\"fondo\" value=\"$fondo\">\n\t<br><a href=\"?op=listado_facturas\" target=\"_blank\">Listado de FACTURAS T</a>\n\t<br><a href=\"#_\" onclick=\"window.open('?op=listado_facturas','nueva','width=600,height=500,left=100,top=100');\">Listado de FACTURAS W</a>\n\n\n\n\n\t<br>\n\t$html_facturas\n\t<!--<br><a href=\"seleccionar_tarjeta.php\">Cambiar imagen de fondo</a>-->\n\t<!--<br>X:<span id=\"x_axis\">0</span> / Y:<span id=\"y_axis\">0</span>-->\n\n\t<br><span onclick=\"$('#instrucciones').toggle();\">Instrucciones...</span>\n\t<div id=\"instrucciones\">Creador de tarjetas - v3.01a<br>\n\t1. Utilizar los campos para poner los textos (de una sola línea)\n\t<br>2. pulsa en el botón GENERAR FACTURA\n\t<br>3. Sobre la imagen, dale a guardar imagen como y descargala\n\t<br>4. Puedes generar un PDF con la imágen.\n\t<br>4. Puedes enviar la factura al email del destinatario.\n\t</div>\n\t<br>\n\nDatos de la Factura:\n<table>\n\t<tr>\n\t\t<td>Título</td>\n\t\t<td><input type=\"text\" name=\"FACtitulo\" value=\"$FACtitulo\"/>\n\t\t</td>\n\t</tr>\n\n\n\t<tr>\n\t\t<td>Descripción:<br>\\<br>\\</td>\n\t\t<td>\n\t\t<input type=\"text\" name=\"FACdescripcion1\" value=\"$FACdescripcion1\"/>\n\t\t<br>\n\t\t<input type=\"text\" name=\"FACdescripcion2\" value=\"$FACdescripcion2\"/>\n\t\t<br>\n\t\t<input type=\"text\" name=\"FACdescripcion3\" value=\"$FACdescripcion3\"/>\n\t\t<br>\n\t\t</td>\n\t</tr>\t\t\t\t\t\t\t\t\t\n\n\t<tr>\n\t\t<td>Nombre</td>\n\t\t<td><input type=\"text\" name=\"FACnombre\" value=\"$FACnombre\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>CIF:</td>\n\t\t<td><input type=\"text\" name=\"FACcif\" value=\"$FACcif\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>Dirección:<br>\\<br>\\</td>\n\t\t<td>\n\t\t<input type=\"text\" name=\"FACdireccion1\" value=\"$FACdireccion1\"/>\n\t\t<br>\n\t\t<input type=\"text\" name=\"FACdireccion2\" value=\"$FACdireccion2\"/>\n\t\t<br>\n\t\t<input type=\"text\" name=\"FACdireccion3\" value=\"$FACdireccion3\"/>\n\t\t<br>\n\t\t</td>\n\t</tr>\t\n\t<tr>\n\t\t<td>C.Postal:</td>\n\t\t<td>\n\t\t<input type=\"text\" name=\"FACcodigopostal\" value=\"$FACcodigopostal\"/>\n\t\t</td>\n\t</tr>\n\n\t<tr>\n\t\t<td>Email:</td>\n\t\t<td><input type=\"text\" name=\"FACemail\" value=\"$FACemail\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>Teléfono:</td>\n\t\t<td><input type=\"text\" name=\"FACtelefono\" value=\"$FACtelefono\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>Contacto:</td>\n\t\t<td><input type=\"text\" name=\"FACcontacto\" value=\"$FACcontacto\"/>\n\t\t</td>\n\t</tr>\t\t\t\t\t\t\n\n\t<tr>\n\t\t<td>Número:</td>\n\t\t<td><input type=\"text\" name=\"FACnumero\" value=\"$FACnumero\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>Fecha:</td>\n\t\t<td><input type=\"text\" name=\"FACfecha\" value=\"$FACfecha\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>Base:</td>\n\t\t<td><input type=\"text\" name=\"FACbase\" value=\"$FACbase\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>IVA:</td>\n\t\t<td><input type=\"text\" name=\"FACiva\" value=\"$FACiva\"/>\n\t\t</td>\n\t</tr>\n\t<tr>\n\t\t<td>Importe:</td>\n\t\t<td><input type=\"text\" name=\"FACimporte\" value=\"$FACimporte\"/>\n\t\t</td>\n\t</tr>\n\n\n\t</tr>\n\t\t<td>logo</td>\n\t\t<td>\n\t\t\t<input type=\"checkbox\" name=\"poner_logo\" value=\"1\"/>¿Añadir código logo?\n\t\t\t<br><input type=\"text\" name=\"direccion3\" value=\"http://www.estemes.com/facturas/logo/?=\"/>\n\t\t</td>\n\t</tr>\n\n\t</tr>\n\t\t<td>QR</td>\n\t\t<td>\n\t\t\t<input type=\"checkbox\" name=\"poner_QR\" value=\"1\"/>¿Añadir código QR?\n\t\t\t<br><input type=\"text\" name=\"direccion3\" value=\"http://www.estemes.com/facturas/qr/?=\"/>\n\t\t</td>\n\t</tr>\t\t\t\t\t\t\t\t\t\t\t\t\n</table>\nfin;\n\n$html.=<<<fin\n<br>\n<input type=\"submit\" value=\"Generar Imagen\">\n</form>\n$datos_imagen\n</div>\n<div id=\"resultado\">\nfin;\n\n//imprimimos el html\nprint $html;\n\n\n?>",
+			"file": "formulario.php",
+			"file_size": 9017,
+			"file_write_time": 131992161790000000,
+			"settings":
+			{
+				"buffer_size": 9278,
+				"line_ending": "Unix",
+				"name": "<?php //formulario.php"
+			}
+		},
+		{
+			"file": "css/estilos.css",
+			"settings":
+			{
+				"buffer_size": 538,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Window.open(url, name, specs);\n\nspecs\nchannelmode=yes|no|1|0\tWhether or not to display the window in theater mode. Default is no. IE only\ndirectories=yes|no|1|0\tObsolete. Whether or not to add directory buttons. Default is yes. IE only\nfullscreen=yes|no|1|0\tWhether or not to display the browser in full-screen mode. Default is no. A window in full-screen mode must also be in theater mode. IE only\nheight=pixels\tThe height of the window. Min. value is 100\nleft=pixels\tThe left position of the window. Negative values not allowed\nlocation=yes|no|1|0\tWhether or not to display the address field. Opera only\nmenubar=yes|no|1|0\tWhether or not to display the menu bar\nresizable=yes|no|1|0\tWhether or not the window is resizable. IE only\nscrollbars=yes|no|1|0\tWhether or not to display scroll bars. IE, Firefox & Opera only\nstatus=yes|no|1|0\tWhether or not to add a status bar\ntitlebar=yes|no|1|0\tWhether or not to display the title bar. Ignored unless the calling application is an HTML Application or a trusted dialog box\ntoolbar=yes|no|1|0\tWhether or not to display the browser toolbar. IE and Firefox only\ntop=pixels\tThe top position of the window. Negative values not allowed\nwidth=pixels\n\n\nheight=200,\nwidth=300\nleft=100,\ntop=100,\nchannelmode=yes,\ndirectories=yes,\nfullscreen=yes,\nlocation=yes,\nmenubar=yes,\nresizable=yes,\nscrollbars=yes,\nstatus=yes,\ntitlebar=yes,\ntoolbar=yes\n\nheight=200,width=300left=100,top=100,channelmode=yes,directories=yes,fullscreen=yes,location=yes,menubar=yes,resizable=yes,scrollbars=yes,status=yes,titlebar=yes,toolbar=yes",
+			"settings":
+			{
+				"buffer_size": 1552,
+				"line_ending": "Unix",
+				"name": "Window.open(url, name, specs);"
+			}
+		},
+		{
+			"file": "grabar.php",
+			"settings":
+			{
+				"buffer_size": 22,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "<?php //grabar.php"
+			}
+		},
+		{
+			"file": "grafico.php",
+			"settings":
+			{
+				"buffer_size": 23,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "<?php //grafico.php"
+			}
+		},
+		{
+			"contents": "<?php //factura_png.php\n\n//Inicio\n//require(\"factura_png_v0.01a.php\");//en pruebas - Ajuste en los tamaños de fuente\n\n//require(\"factura_png_v0.02a.php\");//en pruebas - Ajuste en la posición de las fuentes tamaños de fuente\n\n//require(\"factura_png_v0.03a.php\");//en pruebas - Graba la factura en la base de datos\n\nrequire(\"factura_png_v0.04a.php\");//en pruebas - Graba la factura en la base de datos\n\n\n\n?>",
+			"file": "factura_png.php",
+			"file_size": 406,
+			"file_write_time": 131981326120000000,
+			"settings":
+			{
+				"buffer_size": 405,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php //factura_a_bbdd.php\n\n//require(\"factura_png_v1.01a.php\");//en pruebas - Graba la factura en la base de datos\n\nrequire(\"factura_png_v1.01a.php\");//en pruebas - Graba la factura en la base de datos\n\n?>",
+			"settings":
+			{
+				"buffer_size": 206,
+				"line_ending": "Unix",
+				"name": "<?php //factura_a_bbdd.php"
+			}
+		},
+		{
+			"file": "/Applications/MAMP/htdocs/toolbox/calendario/test_v2.php",
+			"settings":
+			{
+				"buffer_size": 3746,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "<?php"
+			}
+		},
+		{
+			"file": "/Applications/MAMP/htdocs/toolbox/calendario/ex3.php",
+			"settings":
+			{
+				"buffer_size": 5359,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Applications/MAMP/htdocs/toolbox/calendario/semana.php",
+			"settings":
+			{
+				"buffer_size": 237,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Nacho N (Walkie Talkies).txt",
+		"/Applications/MAMP/htdocs/html5.html",
+		"/Users/devta/Google Drive devta/_pendiente/_dominios/Dominios para vender.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Aida Salas Antón.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_dominios/dominios en ionos.es.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/reclamación_2_MOVISTAR.txt",
+		"/Users/devta/Google Drive devta/_Importante/Akhaara/Voluntariado/Reglas_Akhara.txt",
+		"/Users/devta/Google Drive devta/_Importante/Akhaara/Voluntariado/reglas_voluntariado_al-hamam.txt",
+		"/Applications/MAMP/htdocs/toolbox/calendario/inc/fpdf/extras/textbox.php",
+		"/Applications/MAMP/htdocs/toolbox/calendario/test_PDF_textbox.php",
+		"/Applications/MAMP/htdocs/toolbox/calendario/PDF.php",
+		"/Applications/MAMP/htdocs/toolbox/calendario/test_borde.php",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/citas.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Plantas Jabonosas y de limpieza.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/laura_cruz_lerin.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/autorizacion_a_sarabjit.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/¿Hasta qué punto se debe de aguantar el dolor haci.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/reclamacion_movistar__Tengo una empresa llamada UNAMENTE GRD SL, que es",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/reclamacion_movistar_twitter.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/TOTALPLAYB09D.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/fotos_mexico.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Informatica/Python/Desinstalar python 2.7 Mac OSX.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/RadioUPG transmitió en vivo.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/notas/Cosas que voy a necesitar que alguien pueda hacer.txt",
+		"/Users/devta/Google Drive devta/_Importante/Medicos del Cielo/Fundación/Organización/notas Queridos miembros fundadores de Médicos del Cielo.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/pago a hipolito.txt Operación aceptada el día  07-02-19.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Hipolito.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/devta liberbank.txt",
+		"/Users/devta/Downloads/paises_estados_del_mundo-master/sql/estado.sql",
+		"/Users/devta/Downloads/paises_estados_del_mundo-master/sql/pais.sql",
+		"/Users/devta/Google Drive devta/_Importante/Medicos del Cielo/Cursos/Cursos de Sanación/ChulaVista CA/datos_alumnos_curso_chulavista.txt",
+		"/Users/devta/Google Drive devta/_Importante/Medicos del Cielo/Cursos/Cursos de Sanación/ChulaVista CA/MDC_Chulvista_Feb_19.csv",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Xochitl Bohon - Sun Path Academy.txt",
+		"/Users/devta/Google Drive devta/_pendiente/para_hernan_vida_labora.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Embajada de México en España.txt",
+		"/Users/devta/Google Drive devta/_pendiente/videos/DIY CNC Router for Under $900 - Free Plans Availab.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/UNAMENTE GRD SL.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/familia_ultimo_bastion_libertad.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/OSMOSIS INVERSA.txt",
+		"/Users/devta/Google Drive devta/_pendiente/videos/lathe_home_made.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_libros/FASE 1 SOCIALISMO.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Resin.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/grabat gaphenano.txt",
+		"/Users/devta/Google Drive devta/_pendiente/videos/Iron and water battery.txt",
+		"/Users/devta/Google Drive devta/_pendiente/videos/How To Heat A Greenhouse For FREE.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Energía/Baterias/Uso de supercondensadores con baterías solares.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Energía/Baterias/Ácido Plomo/ecualizar baterías de acido plomo.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_libros/Libros para leer.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Power Foods for the Brain .txt",
+		"/Applications/MAMP/htdocs/toolbox/utilities/IVA/iva.php",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Cocina/Nixtamal/nixtamal.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/LAVADO DE CEREBRO. La paradoja de la igualdad.txt",
+		"/Applications/MAMP/htdocs/toolbox/index.html",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/pagos por los manuales en bilbao.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_chats/antonio valls fernandez/Antonio Valls Fernández.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/WIFI aida.txt",
+		"/Users/devta/Google Drive devta/_Importante/_Videos/Mobile (ELECTROMAGNETIC) Drill Stand.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/tablet ruben.txt",
+		"/Users/devta/Google Drive devta/_Importante/Wilddev.com SL/Contabilidad/2018/ISMAEL te mando el iva que he calculado IVA 2018.txt",
+		"/Users/devta/Google Drive devta/_Importante/Wilddev.com SL/Contabilidad/2019/1T/pagos/Orden de transferencia pago caja wilddev.txt",
+		"/Applications/MAMP/htdocs/toolbox/utilities/disco/class_disk_space.php",
+		"/Applications/MAMP/htdocs/toolbox/utilities/disco/espacio_disco.php",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/video inquietante.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/ASOCIACION MEDICOS DEL CIELO.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Agricultura/Enraizante/Potente enraizador a base de jugo de lentejas.txt",
+		"/Users/devta/Google Drive devta/_Importante/Akhaara/Proyecto/Nave_industrial/Presupuestos/patec.org/pruebas/nave 18x30.txt",
+		"/Users/devta/Google Drive devta/_Importante/ky/cursos/Bilbao/manuales_transferencia a Hari Atma.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Contabilidad/Prestamos/wizink/deuda con wizink.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/ayto sueca.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Papeles y Documentos/Herencia/El Perelló/conversacion.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/ruben perez.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/USA-VISA.txt",
+		"/Users/devta/Google Drive devta/_Importante/ky/cursos/Bilbao/manuales.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_Ejes móviles CNC.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_libros/sexual personae - Camille Paglia.txt",
+		"/Users/devta/Google Drive devta/_pendiente/_Feminismo.txt",
+		"/Users/devta/Google Drive devta/_pendiente/gustavo_bueno.txt",
+		"/Applications/MAMP/htdocs/medicosdelcielo.org/asociacion/PRE/formulario_socio_nuevo.php",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Cultura/Silenciados, Documental sobre hombres maltratados",
+		"/Users/devta/Google Drive devta/_pendiente/programas de tv3 interesantes.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Informatica/Autocad/autocad_2013_mac_osx.txt",
+		"/Users/devta/Movies/Amor incondicional.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/textos/Mouro/los_planetas_del_reciclado.txt",
+		"/Users/devta/Google Drive devta/_Importante/Unamente GRD SL/Contabilidad/2019/1T/pagos/anticimex_96,80€-analisis_agua.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/textos/política/vox/las 37 propuestas de Vox en Andalucía.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Bancsabadell acceso.txt",
+		"/Users/devta/Google Drive devta/_Importante/Medicos del Cielo/Gira/2019/Usa y México/gira usa y mexico.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Mela/mela_january.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Mela/mela_march.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Mela/mela_february.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Contabilidad/2019/1T/pagos/pago Orden de transferencia 800€ liberbanc.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/devta banc sabadell.txt",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Lishowa urano.txt",
+		"/Applications/MAMP/htdocs/medicosdelcielo.org/asociacion/PRE/formulario socios.txt",
+		"/Applications/MAMP/htdocs/medicosdelcielo.org/asociacion/PRE/tabla_socios.sql",
+		"/Applications/MAMP/htdocs/medicosdelcielo.org/asociacion/PRE/campos_tabla_socio.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/bits/serpiente_emplumada.txt",
+		"/Users/devta/Google Drive devta/_Importante/Devta/textos/Sueños errantes/Sueño con ir a otro.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Energía/Baterias/NiFe/baterias NiFe chinas 1200ah vaso 1.2V .txt",
+		"/Applications/MAMP/htdocs/medicosdelcielo.org/asociacion/PRE/tabla_socios_formulario_crudo.html",
+		"/Applications/MAMP/htdocs/medicosdelcielo.org/asociacion/PRE/create table eventos.sql",
+		"/Applications/MAMP/htdocs/toolbox/utilities/calculadoras/calculadora_de_segundos.php",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Informatica/docker/Descarga de Docker para mac osx.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Bioconstrucción/Radiciones telúricas.txt",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Bioconstrucción/Geometria Sagrada/Calculo del rectángulo solsticial.txt",
+		"/Applications/MAMP/htdocs/ejemplos/sprites con imagenes/sprites.css",
+		"/Users/devta/Google Drive devta/_Importante/Devta/arte/entrevistas/Jaume Plensa/Jaume Plensa.txt",
+		"/Applications/MAMP/htdocs/toolbox/geometria/indice.html",
+		"/Applications/MAMP/htdocs/toolbox/geometria/geometria_funciones_v1.php",
+		"/Applications/MAMP/htdocs/toolbox/geometria/inc_colores.php",
+		"/Applications/MAMP/htdocs/toolbox/geometria/2_rectas_v2.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/registrar_sanacion_a_distancia.php",
+		"/Users/devta/Google Drive devta/_Importante/Devta/Dominios/Kundalinero.org.txt",
+		"/Users/devta/Google Drive devta/_Importante/_organizacion/taller/Mesa de soldadura.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/PRE/SANACION A DISTANCIA.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/borrar_mis_datos.php",
+		"/Users/devta/Google Drive devta/_Importante/Contactos/Angeles Quiñones Ferrer.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/listado_sanacion_a_distancia.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/acceso_sanacion_a_distancia.php",
+		"/Applications/MAMP/htdocs/toolbox/dominios/buscador_ajax_v01a.php",
+		"/Applications/MAMP/htdocs/toolbox/dominios/buscar_v01a.php",
+		"/Applications/MAMP/htdocs/toolbox/dominios/plantillas/_listado_ajax_v01a.html",
+		"/Applications/MAMP/htdocs/toolbox/dominios/PRE/tabla_dominios.txt",
+		"/Applications/MAMP/htdocs/toolbox/geometria/mandala_circular_v5.php",
+		"/Applications/MAMP/htdocs/toolbox/geometria/calculo_area_edificio_circular_v1.php",
+		"/Users/devta/Google Drive devta/_Importante/Akhaara/Proyecto/Ideas/bovedas/Bovedas catenarias.txt",
+		"/Users/devta/Downloads/ODM-master/README.md",
+		"/Users/devta/Google Drive devta/_Importante/Doc/Materiales/Vidrios/Vidrio de Borosilicato.txt"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\n",
+			"nombre",
+			"decode",
+			"th",
+			"iva",
+			"FACiva",
+			"\n",
+			"<td>",
+			"<input type=\"text\" name=\"",
+			"$tiempo_actual",
+			"$semana",
+			"$ultima_semana",
+			"\n",
+			" / ",
+			"<br>",
+			"\n",
+			";\n",
+			"40, 40",
+			"$margen_superior",
+			"25",
+			"50, 50,",
+			"RT",
+			"'R",
+			"R",
+			"6",
+			"x",
+			"\\\"",
+			"2 ",
+			"1)",
+			"1 ",
+			"1",
+			"1)",
+			"1 ",
+			"valor_original",
+			"</td>",
+			"</tr>\n<tr>",
+			"</tr>",
+			"<td>",
+			"td",
+			"valor_original",
+			"td",
+			"tipo",
+			"id_contact",
+			"\"/toolbox/manuales/Mysql",
+			"toolbox/manuales/Mysql/",
+			"tipo",
+			"contacto",
+			"focus",
+			"on/",
+			"EXPERIMENTOS",
+			"experimentos",
+			"EXPERIMENTOS",
+			"experimentos",
+			">Manuales",
+			"Manuales",
+			"\\\"",
+			"\n",
+			"html",
+			"<br>",
+			"numero_documento",
+			"\n_",
+			" ",
+			"Notice: Undefined variable: ",
+			"$js",
+			"si",
+			"tipo_socio",
+			" name=\"tipo_socio\"",
+			"name=\"tipo_socio\"",
+			"value=\"",
+			"e=\"",
+			"$_val_tipo_socio",
+			"$js_tipo_socio",
+			"$_rot_tipo_socio",
+			"for=\"\"",
+			"</label>",
+			"$_rot",
+			",",
+			"\n",
+			"\">",
+			"campo:",
+			"\"campo\"",
+			"#campo#",
+			"#:",
+			"<br>",
+			"campo",
+			"\"campo\"",
+			"campo",
+			"#campo#",
+			"01",
+			"##",
+			"01",
+			"##",
+			"#campo#",
+			" ",
+			"                ",
+			"               ",
+			"              ",
+			"             ",
+			"            ",
+			"           ",
+			"          ",
+			"         ",
+			"        ",
+			"       ",
+			"      ",
+			"     ",
+			"    ",
+			"   ",
+			"  ",
+			"#campo#",
+			"campo",
+			" ",
+			" index",
+			", ",
+			"\"",
+			"eon",
+			"\", ",
+			"e(\"",
+			"hora",
+			"horas",
+			"hora",
+			"mensaje",
+			"hora",
+			"B1",
+			"#navlist",
+			"B1",
+			"-320",
+			"-640"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Applications/MAMP/htdocs/toolbox/calendario/montar_tarjetas_v1.01b.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2516,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"SL.13.region_keys":
+							[
+							],
+							"SL.382.region_keys":
+							[
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "factura_png_v1.01a.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 37961,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7466,
+								7472
+							]
+						],
+						"settings":
+						{
+							"SL.14.region_keys":
+							[
+							],
+							"SL.426.region_keys":
+							[
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "formulario.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								325,
+								325
+							]
+						],
+						"settings":
+						{
+							"SL.15.region_keys":
+							[
+							],
+							"SL.429.region_keys":
+							[
+								"SL.php.Highlights.|3f23d8ae07b8e50f372c4263f3e490a90a104217232eb4f9279db308d2ad238b|region.redish markup.error.sublime_linter|32",
+								"SL.php.Gutter.|region.redish markup.error.sublime_linter|dot",
+								"sublime_linter.protected_regions"
+							],
+							"auto_name": "<?php //formulario.php",
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 174.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "css/estilos.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 538,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								438,
+								438
+							]
+						],
+						"settings":
+						{
+							"SL.16.region_keys":
+							[
+							],
+							"SL.436.region_keys":
+							[
+							],
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 567.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1552,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1552,
+								1379
+							]
+						],
+						"settings":
+						{
+							"SL.19.region_keys":
+							[
+							],
+							"SL.432.region_keys":
+							[
+							],
+							"auto_name": "Window.open(url, name, specs);",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "grabar.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22,
+								22
+							]
+						],
+						"settings":
+						{
+							"SL.20.region_keys":
+							[
+							],
+							"SL.430.region_keys":
+							[
+							],
+							"auto_name": "<?php //grabar.php",
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "grafico.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19,
+								8
+							]
+						],
+						"settings":
+						{
+							"SL.21.region_keys":
+							[
+							],
+							"SL.431.region_keys":
+							[
+							],
+							"auto_name": "<?php //grafico.php",
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "factura_png.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								401,
+								401
+							]
+						],
+						"settings":
+						{
+							"SL.22.region_keys":
+							[
+							],
+							"SL.427.region_keys":
+							[
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 206,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								26,
+								26
+							]
+						],
+						"settings":
+						{
+							"SL.23.region_keys":
+							[
+							],
+							"SL.428.region_keys":
+							[
+							],
+							"auto_name": "<?php //factura_a_bbdd.php",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Applications/MAMP/htdocs/toolbox/calendario/test_v2.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3746,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								38,
+								38
+							]
+						],
+						"settings":
+						{
+							"SL.24.region_keys":
+							[
+							],
+							"SL.396.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"auto_name": "<?php",
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/Applications/MAMP/htdocs/toolbox/calendario/ex3.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1706,
+								1706
+							]
+						],
+						"settings":
+						{
+							"SL.25.region_keys":
+							[
+							],
+							"SL.413.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/Applications/MAMP/htdocs/toolbox/calendario/semana.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 237,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5,
+								5
+							]
+						],
+						"settings":
+						{
+							"SL.26.region_keys":
+							[
+							],
+							"SL.417.region_keys":
+							[
+								"sublime_linter.protected_regions"
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 168.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

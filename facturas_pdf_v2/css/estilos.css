@@ -1,0 +1,47 @@
+body{
+	font-size: 12.75px;
+}
+
+#barra{
+	float: Right;
+}
+#resultados, #resultado{
+	float: Left;
+}
+IMG.imagen{
+	/*width:1122px;*/
+	width:600px;
+	border:1px solid black;
+}
+.corto{
+	width:3em;
+	max-width:20px;
+	color:red;
+}
+
+.discreto{
+	color:#bbbbbb;
+}
+
+.chillon{
+	color:red;
+	text-decoration:blink;
+}
+
+DIV#instrucciones{
+	font-size: 0.85em;
+	display:block;
+	color:navy;
+	width: 150px;
+	/*border:1px solid black;*/
+}
+
+.FACtitulo{
+	font-size:2em;
+	font-family:verdana,arial;
+}
+
+.FACdescripcion{
+	font-size:1.8em;
+	font-family:verdana,arial;
+}

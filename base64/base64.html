@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Base64</title>
+</head>
+<body>
+	<a href="solo_base64.html">solo texto base64</a><br/>
+
+	<br>Versión Simple
+	Texto a MD5
+	<form action="md5_encode_text.php" method="post"  target="_blank">
+		Texto a convertir:<br/>
+		<textarea name="texto"></textarea><br/>
+		<input type="submit" value="Procesar"/>
+	</form>
+
+
+	<br>BASE64 a texto
+	<form action="base64_decode_text.php" method="post"  target="_blank">
+		Texto a convertir:<br/>
+		<textarea name="texto"></textarea><br/>
+		<input type="submit" value="Procesar"/>
+	</form>
+
+	<br>texto a BASE64
+	<form action="base64_encode_text.php" method="post"  target="_blank">
+		Texto a convertir:<br/>
+		<textarea name="texto"></textarea><br/>
+		<input type="submit" value="Procesar"/>
+	</form>
+
+	<br>Versiones más elaboradas:
+	<form action="base64_decode3.php" method="post"  target="_blank">
+		¿Descargar o mostrar?<br/>
+		<input type="radio" name="disposicion" value="mostrar" checked/>Mostrar<br/>
+		<input type="radio" name="disposicion" value="descargar"/>Descargar<br/>
+		<input type="radio" name="disposicion" value="descargar_nombre"/>Descargar con este nombre: <input type="text" name="nombre" value="fichero_descargado"/><br/>
+		
+
+		Tipo de Content-type a generar:<br/>
+		<input type="radio" name="tipo" value="image/png"/>PNG<br/>
+		<input type="radio" name="tipo" value="image/jpeg" checked/>JPEG<br/>
+		<input type="radio" name="tipo" value="application/pdf"/>PDF<br/>
+		<input type="radio" name="tipo" value="otro"/>Otro: <input type="text" name="tipo_otro" value=""/><br/>
+		Texto a convertir:<br/>
+		<textarea name="texto"></textarea><br/>
+		<input type="submit" value="Procesar"/>
+	</form>
+</body>
+</html>

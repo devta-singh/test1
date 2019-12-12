@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<script type="text/javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/jquery.js"></script>
+<script> 
+$(document).ready(function() {
+ $('#logo').click(function(e) {
+  var offset = $(this).offset();
+  $('#x_axis').html(e.clientX - offset.left);
+  $('#y_axis').html(e.clientY - offset.top);
+ });
+});
+</script>
+ </HEAD>
+ <BODY>
+ <img id='logo' src='http://www.technicalkeeda.com/img/images/technicalkeeda.png' />
+ X Axis: - <span id="x_axis">0</span>
+ Y Axis: - <span id="y_axis">0</span>
+ </BODY>
+</HTML>

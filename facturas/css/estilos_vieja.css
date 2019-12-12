@@ -1,0 +1,59 @@
+BODY{
+    font-family:verdana,arial,helvetica;
+    font-size: 12.75
+}
+
+A.con{
+    text-decoration-color: red;
+}
+
+A.sin{
+   text-decoration: none;
+   text-decoration-color: green;
+}
+
+.centrada{
+    text-align: center;
+    color: red;
+}
+/*
+ul {
+    display:inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    display:inline;
+}
+*/
+/*
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+*/
+
+/*#menu-nav{display:block;}*/
+/*
+#menu-nav ul{display:inline;}
+#menu-nav ul li{ display:inline;}
+#menu-nav ul li ul{ display:inline;}
+#menu-nav ul li ul li{ display:inline;}
+*/
+

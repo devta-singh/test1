@@ -1,0 +1,590 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"imagettf",
+				"imagettftext"
+			],
+			[
+				"ob_get_",
+				"ob_get_contents"
+			],
+			[
+				"ob_",
+				"ob_end_clean"
+			],
+			[
+				"ob_clean",
+				"ob_get_clean"
+			],
+			[
+				"html",
+				"html_entity_decode"
+			],
+			[
+				"ob_end_",
+				"ob_end_flush"
+			],
+			[
+				"pregmatch",
+				"preg_match_all"
+			],
+			[
+				"ob_ge",
+				"ob_get_contents"
+			],
+			[
+				"is_s",
+				"is_string"
+			],
+			[
+				"utf",
+				"utf8_encode"
+			],
+			[
+				"TIM",
+				"CURRENT_TIMESTAMP"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "contacto_listado.php",
+			"settings":
+			{
+				"buffer_size": 242,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "contacto_listado_v01b.php",
+			"settings":
+			{
+				"buffer_size": 3634,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "contacto_alta.php",
+			"settings":
+			{
+				"buffer_size": 2086,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "contacto_nuevo.php",
+			"settings":
+			{
+				"buffer_size": 1197,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "contacto_borrar.php",
+			"settings":
+			{
+				"buffer_size": 1018,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 27.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"PHP Code Sniffer: ",
+				"PHP Code Sniffer: Sniff this file"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 153.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Applications/MAMP/htdocs/aa0.es/grabar.php",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/texto_sobre_imagen.php",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/index.php",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/texto_sobre_imagen_v3.03a.php",
+		"/Users/devta/Google Drive devta/_pendiente/viajes/Billete Madrid Valencia Madrid.txt",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/css/estilos.css",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/montar_tarjetas_v1.01b.php",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/montar_tarjetas.php",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/logs/log.txt",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/inc/fpdf/salida_.txt",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/inc/fpdf/fpdf.php",
+		"/Applications/MAMP/htdocs/toolbox/fpdf181/devta/imagen_1.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/PRE/tablas/consultas.sql",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/test_img.php",
+		"/Applications/MAMP/htdocs/toolbox/operadores/config.cnf",
+		"/Applications/MAMP/htdocs/toolbox/operadores/configuracion_bit.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/inc/config.inc.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/inc/funciones_generales_v01a.inc.php",
+		"/Applications/MAMP/htdocs/toolbox/tarjetas/seleccionar_tarjeta.php",
+		"/Applications/MAMP/htdocs/aa0.es/PRE/Base de datos.txt",
+		"/Applications/MAMP/htdocs/toolbox/fpdf181/tutorial/tuto3.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/contacto_listado.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/contacto_listado_v01b.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/contacto_buscar_activo_v01b.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/contacto_buscar_activo.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/js/funciones_buscador_listado_v0.1.c.js",
+		"/Users/devta/Google Drive devta/_pendiente/Visto en Youtube/Los carros de las 20 mulas.txt",
+		"/Users/devta/Google Drive devta/_pendiente/Herramientas DIT para el Taller.txt",
+		"/Users/devta/Google Drive devta/_Importante/ky/kriyas y meditaciones/Kriya for people in anxiety.txt",
+		"/Users/devta/Google Drive devta/_pendiente/Películas para el despertar de la conciencia.txt",
+		"/Applications/MAMP/htdocs/toolbox/index.html",
+		"/Applications/MAMP/htdocs/toolbox/mouse_XY/mouse_XY.html",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/Creador_posters/texto_sobre_imagen.php",
+		"/Applications/MAMP/htdocs/toolbox/facturas/guardar_busqueda.php",
+		"/Applications/MAMP/htdocs/toolbox/canvas/canvas_example.html",
+		"/Users/devta/Google Drive devta/_pendiente/centinela sistema proteccion maquinas.txt",
+		"/Users/devta/Google Drive devta/Devta/Contabilidad/Pagos/worten/2018-01-24  - 190,72€ worten.txt",
+		"/Users/devta/Google Drive devta/Doc/Metal/Herramientas DIT para el Taller.txt",
+		"/Users/devta/Google Drive devta/Contactos/seguridadcentinela.com.txt",
+		"/Applications/MAMP/htdocs/toolbox/facturas/inc/funciones_generales.inc.php",
+		"/Users/devta/Google Drive devta/Contactos/felipe radio arrebato.txt",
+		"/Users/devta/Google Drive devta/Contactos/Telefono del círculo de sanación de Menorca.txt",
+		"/Users/devta/Google Drive devta/Finca Akhaara/Casa en Villaviciosa/Banco/ING direct/mensaje asesor hipotecas Javier.txt",
+		"/Users/devta/Google Drive devta/Devta/textos/letras musicales/LETRA DE ‘CUERVO INGENUO’ javier krae",
+		"/Users/devta/Google Drive devta/Devta/Contabilidad/Cuentas Banco/veronica yetsimar caso - adesh ravi kaur.txt",
+		"/Users/devta/Google Drive devta/Devta/Contabilidad/Cuentas Banco/wilddev sabadell.txt",
+		"/Users/devta/Google Drive devta/_pendiente/navegacion/whatsapp - Mary Pedrosa - seres luz .txt",
+		"/Users/devta/Google Drive devta/_pendiente/navegacion/contactos juan y jorge caminero.txt",
+		"/Users/devta/Google Drive devta/_pendiente/navegacion/Construcción con balas de paja.txt",
+		"/Users/devta/Google Drive devta/Devta/_pendiente/carter generador arranque electrico [21:03, 8:1:2018] +34 656 34 17 80: Hola feliz año",
+		"/Users/devta/Google Drive devta/_pendiente/CAZRES2Z",
+		"/Applications/MAMP/htdocs/wplocal1/wp-content/themes/twentysixteen/footer.php",
+		"/Applications/MAMP/htdocs/toolbox/base64/md5_encode_text.php",
+		"/Applications/MAMP/htdocs/toolbox/base64/index.html",
+		"/Applications/MAMP/htdocs/toolbox/base64/base64_decode3.php",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/cardioide_v01c1.php",
+		"/Users/devta/Google Drive devta/Akhaara/Proyecto/Ideas/Materiales/Lonas y Arquitectura Textil/canobio arq, textil.txt",
+		"/Users/devta/Google Drive devta/Doc/WIFI/silvia maiques samarra.wifi.txt",
+		"/Applications/MAMP/htdocs/toolbox/base64/solo_base64.html",
+		"/Users/devta/Google Drive devta/Devta/Configuraciones/HP/6950 printer scanner/eprint.txt",
+		"/Users/devta/Google Drive devta/Devta/Legal/herencia/A la atención de gmercader@sueca.es.txt",
+		"/Users/devta/Google Drive devta/Contactos/Virginia Silván.txt",
+		"/Volumes/Datos y Bk/Software/apps/UsenetNL.txt",
+		"/Users/devta/Google Drive devta/Doc/Informatica/OSX/iMac necesita reinstalacion del OSX.txt",
+		"/Users/devta/Google Drive devta/Devta/Contabilidad/cuentas/cuenta_sarabjit.txt",
+		"/Users/devta/Google Drive devta/Doc/Informatica/OSX/cambiar fecha del mac.txt",
+		"/Users/devta/Google Drive devta/Devta/Casa - Villaviciosa de Tajuña/Hipoteca/Hola Fernando, buenos días.txt",
+		"/Users/devta/Google Drive devta/Devta/Casa - Villaviciosa de Tajuña/Hipoteca/fernando update.txt",
+		"/Volumes/Datos y Bk/Software/OSX/crear instalador.txt",
+		"/Volumes/Datos y Bk/Software/OSX/iMac necesita reinstalacion del OSX.txt",
+		"/Users/devta/Google Drive devta/Finca Akhaara/Casa en Villaviciosa/Servicios/Telefono e Internet/proveedor telefonia e internet en Casa Villaviciosa.txt",
+		"/Applications/MAMP/htdocs/toolbox/primos/primos.php",
+		"/Users/devta/Google Drive devta/Medicos del Cielo/Asociación/Imagen Corporativa/Logo/piramide/logo_piramide.html",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/espiral_conica_v01a.php",
+		"/Users/devta/Google Drive devta/Devta/Casa - Villaviciosa de Tajuña/Mercedes del Moral.txt",
+		"/Users/devta/Google Drive devta/Circulos de Sanación/configuracion/emails/emails.bcn.txt",
+		"/Users/devta/Documents/crack/AutoCAD 2013 SN + Crack/AutoCAD 2013 Serials.txt",
+		"/Users/devta/Documents/crack/xfadsk2013/Crack-OSX/install.txt",
+		"/Users/devta/Documents/crack/AutoCAD 2013 SN + Crack/How To.txt",
+		"/Users/devta/Google Drive devta/Medicos del Cielo/Asociación/Tramites/delegaciones_consultas.txt",
+		"/Users/devta/Google Drive devta/Finca Akhaara/Contactos/Tecnicos/jesus valdehita zahorí.txt",
+		"/Users/devta/Google Drive devta/Circulos de Sanación/para la web/los emails.txt",
+		"/Users/devta/Google Drive devta/Finca Akhaara/Contactos/Tecnicos/javiergregorioarroyo@hotmail.com2.txt",
+		"/Volumes/Crack/Product Keys.htm",
+		"/Users/devta/Google Drive devta/Finca Akhaara/Topografía/Topo y GPS/topo_continua05.dwg",
+		"/Users/devta/Google Drive devta/Finca Akhaara/Topografía/Topo y GPS/topo_continua05.dxf",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v2/inc/config.inc.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v2/buscar.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v2/css/estilo.css",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v2/formulario.php",
+		"/Users/devta/Google Drive devta/Doc/Electronica/LED boards/Neo Pixel/How To Run a 8x8 NeoPixel RGB Matrix ( WS2812 ) By.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v2/js/funciones.js",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v2/plantillas/cabecera.html",
+		"/Users/devta/Google Drive devta/Devta/Viajes/Iberia plus 71391031 devta.txt",
+		"/Users/devta/Google Drive devta/Devta/Paco Lara/datos.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/formulario_borrar.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/inc/config.inc.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/formulario.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/PRE/tablas_formularios.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/formulario_procesar.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/seleccionar_campos.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1 copia backup/formulario.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/canvas.html",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/css/estilo.css",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/lista_campos.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/seleccionar_tabla.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/lista_formularios.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/formularios/v1/seleccionar_bbdd.php",
+		"/Users/devta/Google Drive devta/htdocs/circulodesanacion.com/PRE/SQL/tablas.sql",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/plantillas/_formulario_nube_puntos.html",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/plantillas/plantilla_html5.html",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/inc/funciones_graficas_v_01.php",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/graficos_pentagonales_v1.php",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/imagen_prueba_04.php",
+		"/Users/devta/Google Drive devta/Numerologia/Cursos/Carteles/gijon 4y5 noviembre 2017.txt",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/seleccionar_bbdd.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/seleccionar_tabla.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/seleccionar_campos.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/lista_campos.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/inc/config.inc.php",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/plantillas/pie.html",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/plantillas/cabecera.html",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/ejemplo.html",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/css/estilo.css",
+		"/Applications/MAMP/htdocs/circulodesanacion.org/inc/config0.inc.php",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/espiral_conica_v02.php",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/espiral_conica_v02a.php",
+		"/Applications/MAMP/htdocs/devtasingh.es/Utilidades/geometria/isometrica.php"
+	],
+	"find":
+	{
+		"height": 46.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"or",
+			"redir",
+			"bd",
+			"fin",
+			"hidden",
+			"redir",
+			"cambiar",
+			"34",
+			"23",
+			"$ancho",
+			"get",
+			"95,65",
+			"this",
+			"'",
+			"image1",
+			"form",
+			"/form",
+			"buscar_imagen",
+			"fich",
+			"direccion2",
+			"email",
+			"tel",
+			"fondo",
+			"lugar",
+			"Lugar",
+			"lugar",
+			"require",
+			"td",
+			"ang",
+			"x",
+			"texto",
+			"_texto",
+			"campo",
+			"titulo",
+			"x",
+			"nombre",
+			"100",
+			"$visualizacion",
+			"$configuracion1",
+			"_p",
+			"nombre",
+			"\\\"",
+			"\"",
+			"utf8_decode(",
+			"utf8_encode(",
+			"encode"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "contacto_listado.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "contacto_listado_v01b.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3634,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "contacto_alta.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2086,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "contacto_nuevo.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1197,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "contacto_borrar.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1018,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 142.0
+	},
+	"pinned_build_system": "",
+	"project": "facturas.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 50.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

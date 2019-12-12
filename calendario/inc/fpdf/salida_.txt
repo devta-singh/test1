@@ -1,0 +1,63 @@
+[buscar_imagen] => 1
+[configuracion] => -seleccione configuración-
+[guardar_configuracion] => Guardar
+[fondo] => ./fondos/tarjeta_blanco.png
+[chk_campo] => Array
+(
+[campo1] => 1
+[campo2] => 1
+)
+
+[textos] => Array
+(
+[campo1] => Array
+(
+[texto] => campo1
+[x] => 100
+[y] => 200
+[tam] => 15
+[ang] => 0
+[font] => fuentes/lato/Lato-Heavy.ttf
+)
+
+[campo2] => Array
+(
+[texto] => campo2
+[x] => 181
+[y] => 398
+[tam] => 15
+[ang] => 0
+[font] => fuentes/lato/Lato-Heavy.ttf
+)
+
+[campo3] => Array
+(
+[texto] => campo3
+[x] => 100
+[y] => 400
+[tam] => 15
+[ang] => 0
+[font] => fuentes/lato/Lato-Heavy.ttf
+)
+
+[campo4] => Array
+(
+[texto] => campo4
+[x] => 100
+[y] => 500
+[tam] => 15
+[ang] => 0
+[font] => fuentes/lato/Lato-Heavy.ttf
+)
+
+[campo5] => Array
+(
+[texto] => campo5
+[x] => 100
+[y] => 600
+[tam] => 15
+[ang] => 0
+[font] => fuentes/lato/Lato-Heavy.ttf
+)
+
+)

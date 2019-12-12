@@ -1,0 +1,39 @@
+<html>
+<head></head>
+<body>
+<div id="pie"></div>
+<button id="addData"> Add Data </button>
+ 
+<script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script   src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+ 
+<script src="d3pie.min.js"></script>
+<script src="d3.V4.min.js"></script>
+<script>
+    var data = [
+          { label: "1", value: 1 },
+          { label: "2", value: 4 },
+          { label: "3", value: 3 }
+        ];
+ 
+        var pie = new d3pie("pie", {
+          data: {
+            content: data
+          }
+        });
+ 
+        $(function() {
+          var num = 4;
+          $("#addData").on("click", function() {
+            data.push({
+              label: num.toString(),
+              value: Math.floor(Math.random() * 10) + 1
+            });
+ 
+            pie.updateProp("data.content", data);
+            num++;
+          });
+        });
+</script>
+</body>
+</html>

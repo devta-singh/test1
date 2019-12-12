@@ -1,0 +1,62 @@
+
+
+CREATE TABLE discos(
+	id int not null AUTO_INCREMENT PRIMARY KEY,
+	nombre varchar(50) not null unique key,
+	descripcion text null,
+	formato varchar(255) null,
+	notas text null,
+	alta datetime null,
+	ultimo timestamp null default CURRENT_TIMESTAMP,
+
+	directorios int default -1,
+	directorios_ocultos int default -1,
+
+	archivos int default -1,
+	archivos_ocultos int default -1,
+
+	tamano bigint default -1,
+	espacio_libre bigint default -1,
+	espacio_ocupado bigint default -1,
+
+	estado int default -1
+);
+
+CREATE TABLE directorio(
+	id int not null AUTO_INCREMENT PRIMARY KEY,
+	id_disco int not null DEFAULT -1,
+	id_madre int not null DEFAULT -1,
+	nombre varchar(255) not null,
+	solo_nombre varchar(255) not null,
+	solo_ext varchar(50) not null,
+	
+	descripcion text null,
+
+	alta datetime null,
+	ultimo timestamp null default CURRENT_TIMESTAMP,
+
+	tamano bigint default -1,
+	numero ficheros default -1,
+	tipo varchar(90) null default '',
+	datos text null
+
+);
+
+CREATE TABLE fichero(
+	id int not null AUTO_INCREMENT PRIMARY KEY,
+	id_disco int not null DEFAULT -1,
+	id_directorio int not null DEFAULT -1,
+	id_madre int not null DEFAULT -1,
+	nombre varchar(255) not null,
+	solo_nombre varchar(255) not null,
+	solo_ext varchar(50) not null,
+	
+	descripcion text null,
+
+	alta datetime null,
+	ultimo timestamp null default CURRENT_TIMESTAMP,
+
+	tamano bigint default -1,
+	tipo varchar(90) null default '',
+	datos text null
+);

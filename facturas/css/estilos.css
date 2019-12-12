@@ -1,0 +1,79 @@
+BODY{
+    font-family:verdana,arial,helvetica;
+    font-size: 12.75px;
+}
+
+.fondo_form{
+    background-color:#ffd200;
+}
+
+tr:hover td {background:#cccccc;}
+td:hover{background:#cccccc;}
+
+#tabla_listado{
+    background-color:#ffffff;
+    border:0px;
+    margin:1px;
+    padding:1px;
+}
+
+#tabla_listado TR, #tabla_listado TR TD, #tabla_listado TR TH{
+    border:0px;
+    margin:5px;
+    padding:3px;
+}
+
+A.con{
+    text-decoration-color: red;
+}
+
+A.sin{
+   text-decoration: none;
+   text-decoration-color: green;
+}
+
+.centrada{
+    text-align: center;
+    color: red;
+}
+/*
+ul {
+    display:inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    display:inline;
+}
+*/
+/*
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+*/
+
+/*#menu-nav{display:block;}*/
+/*
+#menu-nav ul{display:inline;}
+#menu-nav ul li{ display:inline;}
+#menu-nav ul li ul{ display:inline;}
+#menu-nav ul li ul li{ display:inline;}
+*/
+
