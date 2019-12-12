@@ -1,0 +1,19 @@
+<?php
+
+$ruta = "./fondos";
+$sep = "/";
+$dir = opendir("./fondos");
+
+while($f = readdir($dir)){
+	print "<br>$f";
+	if(is_file($ruta.$sep.$f)){
+		print " es fichero";
+	}
+
+	if(is_dir($ruta.$sep.$f)){
+		print " es directorio";
+	}
+}
+
+
+?>

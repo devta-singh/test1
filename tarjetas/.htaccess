@@ -1,0 +1,7 @@
+AuthType Basic
+AuthName "Password Protected Area"
+#AuthUserFile /path/to/.htpasswd
+
+#comentado en local, pero debe estar activo en remoto
+#AuthUserFile /homepages/24/d256952972/htdocs/_oculto/circulo/.htpasswd
+#Require valid-user

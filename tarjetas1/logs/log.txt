@@ -1,0 +1,738 @@
+INCIO
+2018-01-26 05:16:15 - 1516940175.6173 - 176.86.247.254
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen: imagenes/fondos/MDC_para_personalizar.png
+http://circulodesanacion.org/tarjetas/imagenes/fondos/MDC_para_personalizar.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/fondos/MDC_para_personalizar.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/fondos/MDC_para_personalizar.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => madrid
+    [tel] => 662 529 000
+    [tel2] => 
+    [email] => madrid@circulodesanacion.org
+    [poblacion] => Madrid
+    [direccion1] => O'donnell
+    [direccion2] => C/Hermosilla, 126
+    [direccion3] => 
+    [wordpress_test_cookie] => WP Cookie check
+    [wordpress_logged_in_afbf86f5bbaace48afc853bcd27aa262] => admin|1518079535|DwssuTgffPBragMS4Twko07HTBB2Z8qCBMcS9FkBiBl|c363cf5096ea0ada720408ae61200c5b52a8abe8ea46e85d51d8d1cfa8ba047d
+    [wp-settings-time-1] => 1516870283
+    [wp-settings-1] => libraryContent=browse&editor=tinymce&imgsize=full
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-26 05:19:40 - 1516940380.7529 - 176.86.247.254
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/madrid-1516940380.png
+http://circulodesanacion.org/tarjetas/imagenes/madrid-1516940380.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/madrid-1516940380.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/madrid-1516940380.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => madrid
+    [tel] => 662 529 000
+    [tel2] => 
+    [email] => madrid@circulodesanacion.org
+    [poblacion] => Madrid
+    [direccion1] => O'donnell
+    [direccion2] => C/Hermosilla, 126
+    [direccion3] => 
+    [wordpress_test_cookie] => WP Cookie check
+    [wordpress_logged_in_afbf86f5bbaace48afc853bcd27aa262] => admin|1518079535|DwssuTgffPBragMS4Twko07HTBB2Z8qCBMcS9FkBiBl|c363cf5096ea0ada720408ae61200c5b52a8abe8ea46e85d51d8d1cfa8ba047d
+    [wp-settings-time-1] => 1516870283
+    [wp-settings-1] => libraryContent=browse&editor=tinymce&imgsize=full
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-28 09:06:34 - 1517126794.41 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 21:46:37 - 1517345197.79 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 21:46:48 - 1517345208.44 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517345208.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345208.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345208.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345208.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 21:55:36 - 1517345736.79 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517345736.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345736.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345736.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345736.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 21:56:14 - 1517345774.48 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517345774.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345774.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345774.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517345774.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 22:02:47 - 1517346167.35 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517346167.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346167.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346167.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346167.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 22:02:59 - 1517346179.26 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517346179.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346179.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346179.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346179.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 22:03:14 - 1517346194.8 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517346194.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346194.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346194.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346194.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-30 22:03:18 - 1517346198.69 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517346198.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346198.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346198.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517346198.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-31 08:03:01 - 1517382181.81 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517382181.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517382181.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517382181.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517382181.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-01-31 09:10:12 - 1517386212.68 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Menorca-1517386212.png
+http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517386212.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517386212.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Menorca-1517386212.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Menorca
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 08:59:05 - 1519027145.46 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 09:07:03 - 1519027623.88 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/-1519027623.png
+http://circulodesanacion.org/tarjetas/imagenes/-1519027623.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/-1519027623.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/-1519027623.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => 
+    [tel] => 
+    [tel2] => 
+    [email] => lugo@circulodesanacion.org
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 09:08:03 - 1519027683.76 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/LUGO-1519027683.png
+http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519027683.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519027683.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519027683.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => LUGO
+    [tel] => 652 235 318
+    [tel2] => 
+    [email] => lugo@circulodesanacion.org
+    [poblacion] => Lugo
+    [direccion1] => C/ Monte Faro, 2 - 1°
+    [direccion2] => 27003
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 09:08:14 - 1519027694.77 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/LUGO-1519027694.png
+http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519027694.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519027694.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519027694.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => LUGO
+    [tel] => 652 235 318
+    [tel2] => 
+    [email] => lugo@circulodesanacion.org
+    [poblacion] => 
+    [direccion1] => C/ Monte Faro, 2 - 1°
+    [direccion2] => 27003 Lugo
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 11:58:52 - 1519037932.99 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/LUGO-1519037932.png
+http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519037932.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519037932.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/LUGO-1519037932.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => LUGO
+    [tel] => 652 235 318
+    [tel2] => 
+    [email] => lugo@circulodesanacion.org
+    [poblacion] => 
+    [direccion1] => C/ Monte Faro, 2 - 1°
+    [direccion2] => 27003 Lugo
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 12:07:19 - 1519038439.6 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Sarria-1519038439.png
+http://circulodesanacion.org/tarjetas/imagenes/Sarria-1519038439.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Sarria-1519038439.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Sarria-1519038439.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Sarria
+    [tel] => 633 019 944
+    [tel2] => 
+    [email] => sarria@circulodesanacion.org
+    [poblacion] => Ecoespazo Vitriol
+    [direccion1] => R/ Diego Pazos 18
+    [direccion2] => Sarria
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 12:30:24 - 1519039824.19 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 12:30:33 - 1519039833.12 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 21:17:32 - 1519071452.79 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 21:18:43 - 1519071523.77 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => d7463c47681d77b8b2fdbba334a13b1f
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-19 21:18:54 - 1519071534.81 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Alicante-1519071534.png
+http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519071534.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519071534.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519071534.png"></a>
+------INCIO
+2018-02-22 17:52:16 - 1519318336.95 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-22 17:52:30 - 1519318350.03 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Alicante-1519318350.png
+http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519318350.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519318350.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519318350.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Alicante
+    [tel] => 
+    [tel2] => 
+    [email] => 
+    [poblacion] => 
+    [direccion1] => 
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-02-22 17:53:24 - 1519318404.47 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/fondos/MDC_para_personalizar.png
+generada: imagenes/Alicante-1519318404.png
+http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519318404.png
+<a href="http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519318404.png"><img src="http://circulodesanacion.org/tarjetas/imagenes/Alicante-1519318404.png"></a>
+-----------------------------------------------------
+Array
+(
+    [fondo] => fondos/MDC_para_personalizar.png
+    [lugar] => Alicante
+    [tel] => 633 048 288
+    [tel2] => 
+    [email] => alicante@circulodesanacion.org
+    [poblacion] => C/Concejal Lorenzo Llaneros, 2
+    [direccion1] => Alicante
+    [direccion2] => 
+    [direccion3] => 
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-03-06 20:13:50 - 1520363630.69 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+    [facturas] => c4e8e21551a3fb8882ef5ce1f34815b6
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-03-29 09:10:17 - 1522307417.08 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
+INCIO
+2018-03-29 09:34:13 - 1522308853.94 - ::1
+-----------------------------------------------------
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
+-----------------------------------------------------
+imagen_base: imagenes/-sin-imagen-
+generada: 
+http://circulodesanacion.org/tarjetas/
+<a href="http://circulodesanacion.org/tarjetas/"><img src="http://circulodesanacion.org/tarjetas/"></a>
+-----------------------------------------------------
+Array
+(
+    [SQLiteManager_currentLangue] => 10
+)
+
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+FIN
